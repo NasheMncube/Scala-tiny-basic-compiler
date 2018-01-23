@@ -36,8 +36,24 @@ public class Lexer(reader: Reader) {
   }
 
   @throws
-  def nextToken(): Unit = {
+  def nextToken(): Token = {
+    do{
+      val char = reader.read()
+      if(char == -1) new Token(Type.EOF)
+      else if(char == '\n'.toInt) new Token(Type.LF)
+      else if(char == '+'.toInt) new Token(Type.PLUS)
+      else if(char == '-'.toInt) new Token(Type.MINUS)
+      else if(char == '/'.toInt) new Token(Type.DIV)
+      else if(char == '*'.toInt) new Token(Type.MULT)
+      else if(char == '='.toInt) new Token(Type.EQ)
+      else if(char == '('.toInt) new Token(Type.LPAREN)
+      else if(char == ')'.toInt) new Token(Type.RPAREN)
+      else if(char == ','.toInt) new Token(Type.COMMA)
+      else if(char == '"'.toInt) nextStringToken(char)
+      else if(char == '>'.toInt || char == '<'.toInt) nextRelationalToken(char)
+      //else if(char ==)
 
+    }while(true)
   }
 
   @throws
@@ -80,7 +96,7 @@ public class Lexer(reader: Reader) {
 
     breakable {
       do{
-        var next = peek(this.reader)
+        val next = peek(this.reader)
         if(next == -1) throw new IOException("EOF found in input string")
         else if(next == '"') break
 
@@ -97,7 +113,7 @@ public class Lexer(reader: Reader) {
 
     breakable {
       do{
-        var next = peek(this.reader)
+        val next = peek(this.reader)
         if(!isAlpha(next)) break
 
         reader.skip(1)
@@ -114,7 +130,7 @@ public class Lexer(reader: Reader) {
 
     breakable {
       do{
-        var next = peek(this.reader)
+        val next = peek(this.reader)
         if(!isInteger(next)) break
 
         reader.skip(1)
