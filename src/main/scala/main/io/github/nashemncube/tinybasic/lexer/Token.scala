@@ -7,5 +7,10 @@ class Token(t: Type, value: Option[String]) {
 
   def this(t: Type) = this(t, Option.empty)
 
+  override def toString() {print("Type: " + t + "Val: " + value.get)}
+
+
+
+
 
 }
