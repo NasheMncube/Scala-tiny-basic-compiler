@@ -17,7 +17,7 @@ public class Lexer(reader: Reader) {
     'A'.toInt <= char && char <= 'Z'.toInt
   }
 
-  def isWhiteSpace(char: Character): Boolean = {
+  def isWhiteSpace(char: Int): Boolean = {
     if(Character.isWhitespace(char)) {
       true
     } else {
@@ -51,7 +51,14 @@ public class Lexer(reader: Reader) {
       else if(char == ','.toInt) new Token(Type.COMMA)
       else if(char == '"'.toInt) nextStringToken(char)
       else if(char == '>'.toInt || char == '<'.toInt) nextRelationalToken(char)
-      //else if(char ==)
+      else if(isAlpha(char) && !isAlpha(peek(reader)))
+        new Token(Type.VAR, Option(char.toString))
+      else if(isAlpha(char))
+        nextKeywordToken(char)
+      else if(isInteger(char))
+        nextNumberToken(char)
+      else if(!isWhiteSpace(char))
+        new IOException("Unable to parse input file")
 
     }while(true)
   }
@@ -87,7 +94,10 @@ public class Lexer(reader: Reader) {
         reader.skip(1)
         new Token(Type.LT)
       }
+
     }
+
+
   }
 
   @throws
