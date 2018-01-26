@@ -45,8 +45,4 @@ class Token(t: Type, value: Option[String]) {
     str.map(_.toInt).sum
   }
 
-  def getValue(): String = {
-    value.getOrElse(null)
-  }
-
 }

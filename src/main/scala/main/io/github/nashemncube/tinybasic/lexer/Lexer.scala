@@ -22,7 +22,8 @@ import util.control.Breaks._
   * to skip this process and use the parser to define the grammar on
   * the fly, without tokenizing the input source. However this would have
   * been very complex, especially if the language was more complicated than
-  * the TinyBasic version.
+  * than TinyBASIC. A more detailed theortical definition of what is going on can
+  * be found here assuming basic knowledge of CFGs : https://cs.stackexchange.com/a/28866
   *
   *
  */
