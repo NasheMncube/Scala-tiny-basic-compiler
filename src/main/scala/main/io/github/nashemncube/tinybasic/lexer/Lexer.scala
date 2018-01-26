@@ -6,6 +6,23 @@ import util.control.Breaks._
 
 /**
  * Created by nashe on 23/01/2018.
+  *
+  * This is the main lexer code.
+  *
+  * It functions by taking in something of type Reader into to it's
+  * constructer. This reader provides the character stream which
+  * corresponds to the input source code for the compiler.
+  *
+  * The lexer steps and tokenizes the input. Definitions of the
+  * token class is given in the Token.scala file.
+  *
+  * This is the first phase in compilation. It would have been possible
+  * to skip this process and use the parser to define the grammar on
+  * the fly, without tokenizing the input source. However this would have
+  * been very complex, especially if the language was more complicated than
+  * the TinyBasic version.
+  *
+  *
  */
 public class Lexer(reader: Reader) {
 
