@@ -38,14 +38,25 @@ class LexerTest extends FunSuite {
 
   test("TestVAR") {
     val lexer = new Lexer("G")
-
     assert(new Token(Type.VAR, Option("G")) == lexer.nextToken)
   }
 
   test("TestString") {
     val lexer = new Lexer("\"Hello world\"")
-    assert(new Token(Type.STRING, Option("\"Hello world\"")) == lexer.nextToken())
+    assert(new Token(Type.STRING, Option("Hello world")) == lexer.nextToken())
   }
+
+  test("TestNumber"){
+    val lexer = new Lexer("1234")
+    assert(new Token(Type.NUMBER, Option("1234")) == lexer.nextToken())
+  }
+
+  test("TestKeyword") {
+    val lexer = new Lexer("MAIN")
+    assert(new Token(Type.KEYWORD, Option("MAIN")) == lexer.nextToken())
+  }
+
+  //test()
 
 
 }

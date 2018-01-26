@@ -122,8 +122,8 @@ class Lexer(reader: Reader) {
   }
 
   @throws
-  def nextStringToken(first: Integer): Token = {
-    var ret = first.toChar.toString
+  def nextStringToken(first: Int): Token = {
+    var ret = ""
 
     breakable {
       do{
@@ -141,7 +141,7 @@ class Lexer(reader: Reader) {
 
   @throws
   def nextKeywordToken(first: Int): Token = {
-    var ret = first.toString
+    var ret = first.toChar.toString
 
     breakable {
       do{
@@ -149,7 +149,7 @@ class Lexer(reader: Reader) {
         if(!isAlpha(next)) break
 
         reader.skip(1)
-        ret += next.toString()
+        ret += next.toChar.toString()
       } while(true)
     }
 
@@ -157,16 +157,15 @@ class Lexer(reader: Reader) {
   }
 
   @throws
-  def nextNumberToken(first: Integer): Token ={
-    var ret = first.toString()
-
+  def nextNumberToken(first: Int): Token ={
+    var ret = first.toChar.toString
     breakable {
       do{
         val next = peek(this.reader)
         if(!isInteger(next)) break
 
         reader.skip(1)
-        ret += next.toString()
+        ret += next.toChar.toString
       } while(true)
     }
 
