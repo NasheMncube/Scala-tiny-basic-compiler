@@ -1,6 +1,8 @@
 package main.io.github.nashemncube.tinybasic.lexer
 
-import java.io.{IOException, Reader}
+import java.io.{IOException, Reader, StringReader}
+
+import scala.util.matching.Regex.Match
 import util.control.Breaks._
 
 
@@ -24,7 +26,9 @@ import util.control.Breaks._
   *
   *
  */
-public class Lexer(reader: Reader) {
+class Lexer(reader: Reader) {
+
+  def this(str: String) = this(new StringReader(str))
 
   def isInteger(char: Int): Boolean = {
     '0'.toInt <= char && char <= '9'.toInt
@@ -54,30 +58,30 @@ public class Lexer(reader: Reader) {
 
   @throws
   def nextToken(): Token = {
-    do{
-      val char = reader.read()
-      if(char == -1) new Token(Type.EOF)
-      else if(char == '\n'.toInt) new Token(Type.LF)
-      else if(char == '+'.toInt) new Token(Type.PLUS)
-      else if(char == '-'.toInt) new Token(Type.MINUS)
-      else if(char == '/'.toInt) new Token(Type.DIV)
-      else if(char == '*'.toInt) new Token(Type.MULT)
-      else if(char == '='.toInt) new Token(Type.EQ)
-      else if(char == '('.toInt) new Token(Type.LPAREN)
-      else if(char == ')'.toInt) new Token(Type.RPAREN)
-      else if(char == ','.toInt) new Token(Type.COMMA)
-      else if(char == '"'.toInt) nextStringToken(char)
-      else if(char == '>'.toInt || char == '<'.toInt) nextRelationalToken(char)
-      else if(isAlpha(char) && !isAlpha(peek(reader)))
-        new Token(Type.VAR, Option(char.toString))
-      else if(isAlpha(char))
-        nextKeywordToken(char)
-      else if(isInteger(char))
-        nextNumberToken(char)
-      else if(!isWhiteSpace(char))
-        new IOException("Unable to parse input file")
+    val char = reader.read()
+    if(char == -1) new Token(Type.EOF)
+    else if(char == '\n'.toInt) new Token(Type.LF)
+    else if(char == '+'.toInt) new Token(Type.PLUS)
+    else if(char == '-'.toInt) new Token(Type.MINUS)
+    else if(char == '/'.toInt) new Token(Type.DIV)
+    else if(char == '*'.toInt) new Token(Type.MULT)
+    else if(char == '='.toInt) new Token(Type.EQ)
+    else if(char == '('.toInt) new Token(Type.LPAREN)
+    else if(char == ')'.toInt) new Token(Type.RPAREN)
+    else if(char == ','.toInt) new Token(Type.COMMA)
+    else if(char == '\"'.toInt) nextStringToken(char)
+    else if(char == '>'.toInt || char == '<'.toInt)  nextRelationalToken(char)
+    else if(isAlpha(char) && !isAlpha(peek(reader)))
+      new Token(Type.VAR, Option(char.toChar.toString))
+    else if(isAlpha(char))
+      nextKeywordToken(char)
+    else if(isInteger(char))
+      nextNumberToken(char)
+    else if(isWhiteSpace(char))
+      nextToken()
+    else
+      throw new IOException("Couldn't parse input")
 
-    }while(true)
   }
 
   @throws
@@ -119,15 +123,16 @@ public class Lexer(reader: Reader) {
 
   @throws
   def nextStringToken(first: Integer): Token = {
-    var ret = first.toString
+    var ret = first.toChar.toString
 
     breakable {
       do{
         val next = peek(this.reader)
         if(next == -1) throw new IOException("EOF found in input string")
-        else if(next == '"') break
+        else if(next == '\"') break
 
-        ret += next.toString()
+        reader.skip(1)
+        ret += next.toChar.toString
       } while(true)
     }
 
@@ -167,7 +172,6 @@ public class Lexer(reader: Reader) {
 
     new Token(Type.NUMBER, Option(ret))
   }
-
 
 
 }
