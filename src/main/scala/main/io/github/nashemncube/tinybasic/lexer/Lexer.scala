@@ -2,7 +2,6 @@ package main.io.github.nashemncube.tinybasic.lexer
 
 import java.io.{IOException, Reader, StringReader}
 
-import scala.util.matching.Regex.Match
 import util.control.Breaks._
 
 

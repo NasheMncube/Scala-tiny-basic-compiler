@@ -9,7 +9,7 @@ class Token(t: Type, value: Option[String]) {
 
   //override def toString() {print("Type: " + t + "Val: " + value.get)}
 
-  def canEqual(a: Any) = a.isInstanceOf[Token]
+  def canEqual(a: Any): Boolean = a.isInstanceOf[Token]
 
   override def equals(that: Any): Boolean = {
     that match {
@@ -38,11 +38,20 @@ class Token(t: Type, value: Option[String]) {
       case Type.LT      => 15
       case Type.LTE     => 16
       case Type.COMMA   => 17
+      case Type.MULT    => 18
     }
   }
 
   def hashString(str: String): Int = {
     str.map(_.toInt).sum
+  }
+
+  def getType: Type = {
+    t
+  }
+
+  def getValue: Option[String] = {
+    value
   }
 
 }
