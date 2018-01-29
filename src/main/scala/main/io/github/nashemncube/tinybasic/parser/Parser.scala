@@ -1,6 +1,7 @@
 package main.io.github.nashemncube.tinybasic.parser
 
 import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
+import main.io.github.nashemncube.tinybasic.ast._
 
 /**
   * Created by nashe on 27/01/2018.
@@ -16,9 +17,8 @@ import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
                   LET var = expression
                   GOSUB expression
                   RETURN
-                  CLEAR
-                  LIST
-                  RUN
+                  /*CLEAR*/ Removed
+                  /*LIST*/ Removed
                   END
 
     expr-list ::= (string|expression) (, (string|expression) )*
@@ -83,11 +83,8 @@ class Parser(lexer: Lexer) {
       case "INPUT"  => // Handle input statements
       case "LET"    =>
       case "GOSUB"  =>
-      case "RETURN" =>
-      case "CLEAR"  =>
-      case "LIST"   =>
-      case "RUN"    =>
-      case "END"    =>
+      case "RETURN" => new ReturnStatement
+      case "END"    => new EndStatement
       case _        => throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
     }
   }
