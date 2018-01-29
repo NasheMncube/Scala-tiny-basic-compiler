@@ -8,6 +8,10 @@ import main.io.github.nashemncube.tinybasic.ast._
   *
   * The tinyBASIC grammar is defined below
   *
+  * In the listing, an asterisk ("*") denotes zero or more of the object to its left —
+  * except for the first asterisk in the definition of "term", which is the multiplication operator; parentheses
+  * group objects; and an epsilon ("ε") signifies the empty set.
+  *
   * line ::= number statement CR | statement CR
 
     statement ::= PRINT expr-list
@@ -59,7 +63,6 @@ class Parser(lexer: Lexer) {
   }
 
 
-
   def line(): Line = {
     val value = token.getValue
 
@@ -77,7 +80,7 @@ class Parser(lexer: Lexer) {
   def statement(): Statement = {
 
     token.getValue.get match {
-      case "PRINT"  => // Handle print statement
+      case "PRINT"  => new PrintStatement(lexer)
       case "IF"     => // Handle if then else statement
       case "GOTO"   => // Handle goto statements
       case "INPUT"  => // Handle input statements

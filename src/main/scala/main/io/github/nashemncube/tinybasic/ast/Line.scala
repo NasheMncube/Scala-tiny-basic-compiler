@@ -1,5 +1,4 @@
-package main.io.github.nashemncube.tinybasic.parser
-
+package main.io.github.nashemncube.tinybasic.ast
 /**
   * Created by nashe on 27/01/2018.
   */

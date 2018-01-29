@@ -4,6 +4,5 @@ package main.io.github.nashemncube.tinybasic.ast
   * Created by nashe on 29/01/2018.
   */
 class ReturnStatement extends Statement{
-  override var args: Option[String] = Option.empty
-  override var expr: Option[Expression] = Option.empty
+  override var args: Array[Option[Any]] = Array.empty
 }
