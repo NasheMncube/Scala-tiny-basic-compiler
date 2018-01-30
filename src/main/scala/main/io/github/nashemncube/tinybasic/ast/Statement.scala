@@ -7,6 +7,6 @@ import main.io.github.nashemncube.tinybasic.lexer.Lexer
 abstract class Statement(lexer: Lexer) {
 
   // Args can be expressions, varlists, exprlists, other statements and strings
-  var args: Array[Option[Any]]
+  var args: Array[Any]
 
 }

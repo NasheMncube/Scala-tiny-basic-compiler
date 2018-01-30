@@ -15,9 +15,9 @@ import main.io.github.nashemncube.tinybasic.lexer._
     number ::= digit digit*
   */
 // TODO: Define expression class and methods for all expression types
-abstract class Expression(lexer: Lexer) {
-  var currentToken: Token = lexer.nextToken()
-  var term: Option[String]
+class Expression(lexer: Lexer, currentToken: Token) {
+
+  //var term: Option[String]
 
   currentToken.getType match {
     case Type.PLUS   => // Handle plus operator
