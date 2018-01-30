@@ -47,7 +47,8 @@ class PrintStatement(lexer: Lexer) extends Statement {
         args :+ Right(new Expression(lexer, currentToken))
         currentToken = lexer.nextToken()
         this.apply()
-    }
+      case _ =>
+        return
   }
 
 

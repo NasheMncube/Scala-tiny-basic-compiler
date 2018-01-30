@@ -14,7 +14,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
     number ::= digit digit*
   */
-// TODO: Define expression class and methods for all expression types
+// TODO: Define expression class and methods for all expression types such that recursively obtain expressions
 class Expression(lexer: Lexer, currentToken: Token) {
 
   //var term: Option[String]
@@ -28,13 +28,9 @@ class Expression(lexer: Lexer, currentToken: Token) {
 
   }
 
-  // TODO: Define the recursive functions which handle case statements abov
+  // TODO: Define the recursive functions which handle case statements above
   // TODO: Consider not making class abstract but a general concrete type
-  /** TODO: Consider making expressions an easily mappable array for their description*This will generalise
-    * to larger expressions and removes the need for trivial object descriptions
-    * for different types of expressions. Similarly do the same for the case of
-    * statements and their behaviour
-   */
+  // TODO: Finish implementation such that it is testable against non-branch statements
 
 
 

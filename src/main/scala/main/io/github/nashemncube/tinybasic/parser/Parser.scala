@@ -83,7 +83,7 @@ class Parser(lexer: Lexer) {
       case "PRINT"  => new PrintStatement(lexer)
       case "IF"     => // Handle if then else statement
       case "GOTO"   => // Handle goto statements
-      case "INPUT"  => // Handle input statements
+      case "INPUT"  => new InputStatement(lexer)
       case "LET"    =>
       case "GOSUB"  =>
       case "RETURN" => new ReturnStatement
