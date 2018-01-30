@@ -31,24 +31,22 @@ class PrintStatement(lexer: Lexer) extends Statement {
     */
 
   var currentToken: Token = lexer.nextToken()
-  override var args: Array[Either[String, Expression]] = defineValues()
+  override var args: Array[Either[String, Expression]]
 
-  def defineValues(): Array[Either[String, Expression]] = {
+  def apply(): Unit = {
     currentToken.getType match {
       case Type.COMMA                                      =>
         args :+ Left(",")
         currentToken = lexer.nextToken()
-        defineValues()
+        this.apply()
       case Type.STRING                                     =>
         args :+ Left(currentToken.getValue.get)
         currentToken = lexer.nextToken()
-        defineValues()
+        this.apply()
       case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER =>
         args :+ Right(new Expression(lexer, currentToken))
         currentToken = lexer.nextToken()
-        defineValues()
-      case _ =>
-        args
+        this.apply()
     }
   }
 

@@ -79,7 +79,7 @@ class Parser(lexer: Lexer) {
   @throws
   def statement(): Statement = {
 
-    token.getValue.get match {
+    token.getValue.get match { // Statements correspond to keyword type
       case "PRINT"  => new PrintStatement(lexer)
       case "IF"     => // Handle if then else statement
       case "GOTO"   => // Handle goto statements
