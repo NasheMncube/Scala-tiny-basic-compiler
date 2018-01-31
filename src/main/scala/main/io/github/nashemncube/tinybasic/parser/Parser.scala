@@ -81,11 +81,11 @@ class Parser(lexer: Lexer) {
 
     token.getValue.get match { // Statements correspond to keyword type
       case "PRINT"  => new PrintStatement(lexer)
-      case "IF"     => // Handle if then else statement
-      case "GOTO"   => // Handle goto statements
+      case "IF"     => throw new RuntimeException("Implement me")
+      case "GOTO"   => throw new RuntimeException("Implement me")
       case "INPUT"  => new InputStatement(lexer)
-      case "LET"    =>
-      case "GOSUB"  =>
+      case "LET"    => new LetStatement(lexer)
+      case "GOSUB"  => throw new RuntimeException("Implement me")
       case "RETURN" => new ReturnStatement
       case "END"    => new EndStatement
       case _        => throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
