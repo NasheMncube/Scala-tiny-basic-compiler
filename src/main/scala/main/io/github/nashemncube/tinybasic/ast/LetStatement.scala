@@ -20,16 +20,18 @@ import main.io.github.nashemncube.tinybasic.lexer._
 class LetStatement(lexer: Lexer) extends Statement {
   override var args: Array[Either[String, Expression]]
   var currentToken: Token = lexer.nextToken
+  var inExpr = false // Necessary for pattern matching var in arguments to let statement and not to expression and vice versa
 
   def apply(): Unit = {
     currentToken.getType match {
       case Type.EQ =>
-        args :+ Left(",")
+        args :+ Left("=")
         currentToken = lexer.nextToken()
         this.apply
-      case Type.VAR =>
+      case Type.VAR if !inExpr =>
         args :+ Left(currentToken.getValue.get)
         currentToken = lexer.nextToken()
+        inExpr = true
         this.apply()
       case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER => //Expression conditions
         args :+ Right(new Expression(lexer, currentToken))

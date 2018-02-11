@@ -14,17 +14,31 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
     number ::= digit digit*
   */
+
+
 // TODO: Define expression class and methods for all expression types such that recursively obtain expressions
 class Expression(lexer: Lexer, currentToken: Token) {
 
-  //var term: Option[String]
+  // Rexpr essentially deals with right hand recursion, lexpr is a expression definition
+  // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
+  // by definition of the grammar
+  var lExpr, rExpr: Option[Expression]
 
   currentToken.getType match {
-    case Type.PLUS   => // Handle plus operator
-    case Type.MINUS  => // Handle minus operator
+    case Type.PLUS | Type.MINUS   =>
+      lExpr = new UnaryExpression()
+
     case Type.VAR    => // Handle var
     case Type.NUMBER => // Handle number
     case _           => throw new RuntimeException("Couldn't handle expression")
+  }
+
+  def nextExpr(): Expression = {
+
+
+  }
+
+  def nextTerm(): Expression = {
 
   }
 
