@@ -22,6 +22,8 @@ class Expression(lexer: Lexer, currentToken: Token) {
   // Rexpr essentially deals with right hand recursion, lexpr is a expression definition
   // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
   // by definition of the grammar
+
+  // TODO: Considered eliminating left recursion using Chomsky normal form
   var lExpr, rExpr: Option[Expression]
 
   currentToken.getType match {
