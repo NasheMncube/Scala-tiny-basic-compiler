@@ -23,7 +23,10 @@ class Expression(lexer: Lexer, currentToken: Token) {
   // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
   // by definition of the grammar
 
-  // TODO: Considered eliminating left recursion using Chomsky normal form
+  // DONE: Considered eliminating left recursion using Chomsky normal form
+  // Above is done, asssuming that a the grammar is defined such that we can't derive expression ::= expression
+  // but rather expression ::= (expression). Parentheses group objects, eliminating left recursion
+
   var lExpr, rExpr: Option[Expression]
 
   currentToken.getType match {
