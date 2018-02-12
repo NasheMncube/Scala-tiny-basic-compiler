@@ -1,4 +1,4 @@
-package main.io.github.nashemncube.tinybasic.ast
+package main.io.github.nashemncube.tinybasic.ast;
 
 /**
   * Created by nashe on 11/02/2018.

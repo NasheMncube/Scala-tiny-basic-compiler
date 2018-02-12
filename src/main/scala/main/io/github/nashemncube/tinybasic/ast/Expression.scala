@@ -19,31 +19,53 @@ import main.io.github.nashemncube.tinybasic.lexer._
 // TODO: Define expression class and methods for all expression types such that recursively obtain expressions
 class Expression(lexer: Lexer, currentToken: Token) {
 
-  // Rexpr essentially deals with right hand recursion, lexpr is a expression definition
+  // Rexpr essentially deals with right hand recursion, lExpr is a expression definition
   // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
   // by definition of the grammar
 
-  // DONE: Considered eliminating left recursion using Chomsky normal form
+  // DONE: Considered eliminating lExpr recursion using Chomsky normal form
   // Above is done, asssuming that a the grammar is defined such that we can't derive expression ::= expression
-  // but rather expression ::= (expression). Parentheses group objects, eliminating left recursion
+  // but rather expression ::= (expression). Parentheses group objects, eliminating lExpr recursion
 
-  var lExpr, rExpr: Option[Expression]
+  var lExpr, rExpr: Either[Token, Expression]
 
   currentToken.getType match {
     case Type.PLUS | Type.MINUS   =>
-      lExpr = new UnaryExpression()
+      lExpr = {
+        if (currentToken.getType == Type.PLUS)
+          Right(new UnaryExpression(UnaryOperator.PLUS, nextTerm))
+        else
+          Right(new UnaryExpression(UnaryOperator.MINUS, nextTerm))
+      }
+      
+      rExpr = Right(nextExpr)
 
-    case Type.VAR    => // Handle var
-    case Type.NUMBER => // Handle number
+    case Type.VAR    =>
+      lExpr = Left(currentToken)
+      rExpr = Right(nextExpr)
+
+    case Type.NUMBER =>
+      lExpr = Left(currentToken)
+      rExpr = Right(nextExpr)
+
     case _           => throw new RuntimeException("Couldn't handle expression")
   }
 
-  def nextExpr(): Expression = {
+  def nextExpr: Expression = {
 
 
   }
 
-  def nextTerm(): Expression = {
+  def nextTerm: Either[Token, Expression] = {
+    val nextToken = lexer.nextToken()
+
+    nextToken.getType match {
+      case Type.VAR | Type.NUMBER => Left(nextToken)
+      case Type.LPAREN            =>
+        val expr = nextExpr
+        Right(expr)
+    }
+
 
   }
 
