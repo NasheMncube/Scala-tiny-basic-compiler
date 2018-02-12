@@ -29,7 +29,7 @@ class PrintStatement(lexer: Lexer) extends Statement {
     * Expr-list is defined as comma seperateed strings/expressions.
     *
     */
-
+  // TODO: Deal with parentheses indication nested expressions
   var currentToken: Token = lexer.nextToken()
   override var args: Array[Either[Token, Expression]]
 
@@ -43,7 +43,7 @@ class PrintStatement(lexer: Lexer) extends Statement {
         args :+ Left(currentToken)
         currentToken = lexer.nextToken()
         this.apply()
-      case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER =>
+      case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER | Type.LPAREN =>
         args :+ Right(new Expression(lexer, currentToken))
         currentToken = lexer.nextToken()
         this.apply()

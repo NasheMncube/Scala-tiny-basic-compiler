@@ -47,13 +47,10 @@ class Expression(lexer: Lexer, currentToken: Token) {
     case Type.NUMBER =>
       lExpr = Left(currentToken)
       rExpr = Right(nextExpr)
-
-    case _           => throw new RuntimeException("Couldn't handle expression")
   }
 
   def nextExpr: Expression = {
-
-
+    new Expression(lexer, lexer.nextToken())
   }
 
   def nextTerm: Either[Token, Expression] = {
@@ -66,11 +63,10 @@ class Expression(lexer: Lexer, currentToken: Token) {
         Right(expr)
     }
 
-
   }
 
-  // TODO: Define the recursive functions which handle case statements above
-  // TODO: Consider not making class abstract but a general concrete type
+  // DONE: Define the recursive functions which handle case statements above
+  // DONE: Consider not making class abstract but a general concrete type
   // TODO: Finish implementation such that it is testable against non-branch statements
 
 

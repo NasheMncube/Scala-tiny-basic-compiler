@@ -17,6 +17,8 @@ import main.io.github.nashemncube.tinybasic.lexer._
     number ::= digit digit*
   *
   */
+
+// TODO: Deal with parentheses for nested expressions
 class LetStatement(lexer: Lexer) extends Statement {
   override var args: Array[Either[Token, Expression]]
   var currentToken: Token = lexer.nextToken
@@ -33,7 +35,7 @@ class LetStatement(lexer: Lexer) extends Statement {
         currentToken = lexer.nextToken()
         inExpr = true
         this.apply()
-      case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER => //Expression conditions
+      case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER | Type.LPAREN => //Expression conditions
         args :+ Right(new Expression(lexer, currentToken))
         currentToken = lexer.nextToken()
         this.apply()
