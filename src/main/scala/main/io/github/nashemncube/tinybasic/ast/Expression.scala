@@ -27,6 +27,7 @@ class Expression(lexer: Lexer, currentToken: Token) {
   // Above is done, asssuming that a the grammar is defined such that we can't derive expression ::= expression
   // but rather expression ::= (expression). Parentheses group objects, eliminating lExpr recursion
 
+  // TODO: Deal with multiplication and division in factor definition
   var lExpr, rExpr: Either[Token, Expression]
 
   currentToken.getType match {
@@ -47,6 +48,9 @@ class Expression(lexer: Lexer, currentToken: Token) {
     case Type.NUMBER =>
       lExpr = Left(currentToken)
       rExpr = Right(nextExpr)
+
+    case Type.MULT | Type.DIV  => _ // Theoretically this is handled by nextTerm
+
   }
 
   def nextExpr: Expression = {
@@ -57,7 +61,10 @@ class Expression(lexer: Lexer, currentToken: Token) {
     val nextToken = lexer.nextToken()
 
     nextToken.getType match {
-      case Type.VAR | Type.NUMBER => Left(nextToken)
+      case Type.VAR | Type.NUMBER =>
+        Left(nextToken)
+      case Type.MULT | Type.DIV   =>
+        Right(new BinaryExpression(nextToken.getType, ))//TODO: Correctly recursively define a binary expression. Perhaps remove
       case Type.LPAREN            =>
         val expr = nextExpr
         Right(expr)
