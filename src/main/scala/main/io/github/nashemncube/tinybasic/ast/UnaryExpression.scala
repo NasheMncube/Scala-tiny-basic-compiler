@@ -7,7 +7,9 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
 /*
   It makes sense that within a unary expression we can obtain a binary expression using this as the left expresison
-  and recursively obtaining the right expression.
+  and recursively obtaining the right expression. Alternatively we constrain this behaviour to the Expression super
+  class. I haven't decided which would be better
+
  */
 
 // TODO: Move computation of whether we have a binary or unary to the parser class solely. It's not clean but more
