@@ -19,7 +19,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
 // TODO: Define expression class and methods for all expression types such that recursively obtain expressions
 class Expression(lexer: Lexer, currentToken: Token) {
 
-  // Rexpr essentially deals with right hand recursion, lExpr is a expression definition
+  /*// Rexpr essentially deals with right hand recursion, lExpr is a expression definition
   // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
   // by definition of the grammar
 
@@ -32,22 +32,16 @@ class Expression(lexer: Lexer, currentToken: Token) {
 
   currentToken.getType match {
     case Type.PLUS | Type.MINUS   =>
-      lExpr = {
-        if (currentToken.getType == Type.PLUS)
-          Right(new UnaryExpression(UnaryOperator.PLUS, nextTerm))
-        else
-          Right(new UnaryExpression(UnaryOperator.MINUS, nextTerm))
-      }
-      
+      lExpr = Right(new UnaryExpression(Type, nextTerm))
       rExpr = Right(nextExpr)
 
     case Type.VAR    =>
       lExpr = Left(currentToken)
-      rExpr = Right(nextExpr)
+      //rExpr = Right(nextExpr) Should handle binary expression
 
     case Type.NUMBER =>
       lExpr = Left(currentToken)
-      rExpr = Right(nextExpr)
+      //rExpr = Right(nextExpr) should handle binary expression possibility
 
     case Type.MULT | Type.DIV  => _ // Theoretically this is handled by nextTerm
 
@@ -61,16 +55,16 @@ class Expression(lexer: Lexer, currentToken: Token) {
     val nextToken = lexer.nextToken()
 
     nextToken.getType match {
-      case Type.VAR | Type.NUMBER =>
+      case Type.VAR | Type.NUMBER                         =>
         Left(nextToken)
-      case Type.MULT | Type.DIV   =>
-        Right(new BinaryExpression(nextToken.getType, ))//TODO: Correctly recursively define a binary expression. Perhaps remove
-      case Type.LPAREN            =>
+      case Type.MULT | Type.DIV | Type.PLUS | Type.MINUS  =>
+        Right(new BinaryExpression(nextToken.getType, lexer))//TODO: Correctly recursively define a binary expression. Perhaps remove
+      case Type.LPAREN                                    =>
         val expr = nextExpr
         Right(expr)
     }
 
-  }
+  }*/
 
   // DONE: Define the recursive functions which handle case statements above
   // DONE: Consider not making class abstract but a general concrete type

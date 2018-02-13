@@ -1,6 +1,6 @@
 package main.io.github.nashemncube.tinybasic.ast
 
-import main.io.github.nashemncube.tinybasic.lexer.Token
+import main.io.github.nashemncube.tinybasic.lexer._
 /**
   * Created by nashe on 11/02/2018.
   */
@@ -12,14 +12,14 @@ import main.io.github.nashemncube.tinybasic.lexer.Token
 
 // TODO: Move computation of whether we have a binary or unary to the parser class solely. It's not clean but more
 // understandable
-class UnaryExpression(operator: UnaryOperator, term: Either[Token, Expression]) extends Expression {
+class UnaryExpression(operatorType: Type, term: Either[Token, Expression]) extends Expression {
 
-  override def nextExpr: Expression = {
-
-  }
-
-  override def nextTerm: Either[Token, Expression] =  {
-
+  val operator: UnaryOperator = {
+    operatorType match {
+      case Type.PLUS  =>  UnaryOperator.PLUS
+      case Type.MINUS => UnaryOperator.MINUS
+      case _          => throw new RuntimeException("Incorrect type passed to unary expression")
+    }
   }
 
 }
