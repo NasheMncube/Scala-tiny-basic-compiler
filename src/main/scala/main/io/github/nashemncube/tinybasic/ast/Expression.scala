@@ -82,8 +82,12 @@ class Expression(lexer: Lexer, currentToken: Token) {
       lExpr = Option(new UnaryExpression(currentToken.getType, nextTerm))
       rExpr = nextExpr
 
-    case Type.LPAREN =>
-      lExpr = nextExpr
+    case Type.VAR | Type.NUMBER =>
+      lExpr = Option(new UnaryExpression(currentToken.getType, Left(currentToken)))
+      rExpr = nextExpr
+
+    /*case Type.LPAREN =>
+      lExpr = nextExpr*/
   }
 
   /**

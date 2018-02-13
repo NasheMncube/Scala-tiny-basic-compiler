@@ -14,10 +14,12 @@ import main.io.github.nashemncube.tinybasic.lexer._
 // understandable
 class UnaryExpression(operatorType: Type, term: Either[Token, Expression]) extends Expression {
 
+
   val operator: UnaryOperator = {
     operatorType match {
-      case Type.PLUS  =>  UnaryOperator.PLUS
-      case Type.MINUS => UnaryOperator.MINUS
+      case Type.PLUS              =>  UnaryOperator.PLUS
+      case Type.MINUS             => UnaryOperator.MINUS
+      case Type.NUMBER | Type.VAR => null
       case _          => throw new RuntimeException("Incorrect type passed to unary expression")
     }
   }
