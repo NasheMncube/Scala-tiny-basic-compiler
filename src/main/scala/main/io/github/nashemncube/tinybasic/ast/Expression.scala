@@ -8,7 +8,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
     term ::= factor ((*|/) factor)*
 
-    factor ::= var | number | (expression)
+    factor ::= var | number | '('expression')'
 
     var ::= A | B | C ... | Y | Z
 
@@ -66,9 +66,78 @@ class Expression(lexer: Lexer, currentToken: Token) {
 
   }*/
 
+  /**
+    * If we enter an expression class, if the first thing we see is a plus or minus, we know that we have a unary
+    * expression. This is of the form
+    *   (+|-) term ::=
+    *   (+|-) (factor ((*|/) factor)* ) ::=
+    *                                   (+|-) (((var | number | (expression)) (*|/) var | number | (expression))
+    *
+    */
+
+  var lExpr, rExpr: Option[Expression]
+
+  currentToken.getType match {
+    case Type.PLUS | Type.MINUS =>
+      lExpr = Option(new UnaryExpression(currentToken.getType, nextTerm))
+      rExpr = nextExpr
+
+    case Type.LPAREN =>
+      lExpr = nextExpr
+  }
+
+  /**
+    * Passed to sub expressions in tree so as to recursively build the AST
+    * @return Next term may be a token or a nested expression, hidden by parentheses
+    */
+
+  def nextTerm: Either[Token, Expression] = {
+    val nextToken = lexer.nextToken()
+
+    nextToken.getType match {
+      case Type.VAR | Type.NUMBER =>
+        val buf = lexer.nextToken()
+        buf.getType match {
+          case Type.MULT | Type.DIV => Right(new BinaryExpression(nextToken, buf.getType, lexer))
+          case _ => Left(nextToken)
+        }
+
+      case Type.LPAREN =>
+        val expr = new Expression(lexer, nextToken)
+        assert(lexer.nextToken().getType == Type.RPAREN)
+        val buf = lexer.nextToken()
+        buf.getType match {
+          case Type.MULT | Type.DIV => Right(new BinaryExpression(Option(expr), buf.getType, lexer))
+          case _                    => Right(expr)
+        }
+    }
+
+
+  }
+
+  /**
+    * Read next token in stream, and recursively obtain the right expression.
+    *
+    * Left recursion is eliminated via this method.
+    * @return Definition for the right expression
+    */
+
+  def nextExpr: Option[Expression] = {
+    val nextToken = lexer.nextToken()
+
+    nextToken.getType match {
+      case Type.PLUS | Type.MINUS =>
+        Option(new BinaryExpression(lExpr, nextToken.getType, lexer))
+
+      case _ => Option.empty
+    }
+
+  }
+
   // DONE: Define the recursive functions which handle case statements above
   // DONE: Consider not making class abstract but a general concrete type
   // TODO: Finish implementation such that it is testable against non-branch statements
+  // TODO: Testing for unary and binary statements.
 
 
 

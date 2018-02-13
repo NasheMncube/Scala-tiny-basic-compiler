@@ -29,18 +29,16 @@ class LetStatement(lexer: Lexer) extends Statement {
       case Type.EQ =>
         args :+ Left(currentToken)
         currentToken = lexer.nextToken()
-        this.apply
+        //this.apply
       case Type.VAR if !inExpr =>
         args :+ Left(currentToken)
         currentToken = lexer.nextToken()
         inExpr = true
-        this.apply()
+        //this.apply()
       case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER | Type.LPAREN => //Expression conditions
         args :+ Right(new Expression(lexer, currentToken))
         currentToken = lexer.nextToken()
-        this.apply()
-      case _ =>
-        return
+        //this.apply()
     }
   }
 }
