@@ -75,6 +75,10 @@ class Expression(lexer: Lexer, currentToken: Token) {
     *
     */
 
+
+  // TODO: Consider expressions being described as below. Using array allows for a much easier recursion.
+  //       this allows expressionss to be added by reading whole expression at once.
+  // lExpr, rExpr: Array[Either[Term, BinaryOperator]]
   var lExpr, rExpr: Option[Expression]
 
   currentToken.getType match {
@@ -90,10 +94,15 @@ class Expression(lexer: Lexer, currentToken: Token) {
       lExpr = nextExpr*/
   }
 
+
+  // TODO: Dealing with binary expression on left hand of expression. I.e in a unary statement
+  // TODO: Dealing with binary expression on right hand of expression.
   /**
     * Passed to sub expressions in tree so as to recursively build the AST
     * @return Next term may be a token or a nested expression, hidden by parentheses
     */
+
+    // Array[Either[Factor, BinaryOperator]] Factor:t = Either[Token, Expression]
 
   def nextTerm: Either[Token, Expression] = {
     val nextToken = lexer.nextToken()
@@ -102,7 +111,7 @@ class Expression(lexer: Lexer, currentToken: Token) {
       case Type.VAR | Type.NUMBER =>
         val buf = lexer.nextToken()
         buf.getType match {
-          case Type.MULT | Type.DIV => Right(new BinaryExpression(nextToken, buf.getType, lexer))
+          case Type.MULT | Type.DIV => Right(new BinaryTerm(Left(nextToken), buf, lexer))
           case _ => Left(nextToken)
         }
 
@@ -137,6 +146,21 @@ class Expression(lexer: Lexer, currentToken: Token) {
     }
 
   }
+
+  /**
+    * This method should recursively build the entire abstract syntaxt for expression so as to handle
+    * expression statements that are longer than just two terms and also longer than just two factors
+    *
+    * This should be some type of looping calling the above functions
+    *
+    * example
+    *
+    * term + term - term <epsilon>
+    *
+    * factor * factor / factor * factor <epsilon>
+    *
+    */
+  def buildExpression()
 
   // DONE: Define the recursive functions which handle case statements above
   // DONE: Consider not making class abstract but a general concrete type

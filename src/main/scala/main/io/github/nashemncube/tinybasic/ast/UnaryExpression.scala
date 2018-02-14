@@ -16,7 +16,6 @@ import main.io.github.nashemncube.tinybasic.lexer._
 // understandable
 class UnaryExpression(operatorType: Type, term: Either[Token, Expression]) extends Expression {
 
-
   val operator: UnaryOperator = {
     operatorType match {
       case Type.PLUS              =>  UnaryOperator.PLUS

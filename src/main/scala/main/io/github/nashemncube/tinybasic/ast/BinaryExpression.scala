@@ -9,8 +9,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
   */
 class BinaryExpression(lExpr: Option[Expression], operatorType: Type, lexer: Lexer/*, lExpr: Expression, rExpr: Expression*/) extends Expression{
 
-  def this(token: Token, operator: Type, lexer: Lexer) = _
-  override var rExpr: Option[Expression] = _
+  override var rExpr: Option[Expression] = nextExpr
 
   val operator: BinaryOperator = {
     operatorType match {
@@ -19,6 +18,10 @@ class BinaryExpression(lExpr: Option[Expression], operatorType: Type, lexer: Lex
       case Type.PLUS  => BinaryOperator.PLUS
       case Type.MINUS => BinaryOperator.MINUS
     }
+  }
+
+  override def nextExpr: Option[Expression] = {
+
   }
 
     //TODO: Modified super methods to recursively define sub expressions
