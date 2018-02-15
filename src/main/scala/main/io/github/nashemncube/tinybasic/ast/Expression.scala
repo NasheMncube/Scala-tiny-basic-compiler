@@ -34,7 +34,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     *
     */
 
-  val value: Array[Either[Operator, Term]]
+  val value: Array[Either[Operator, Term]] = buildExpression
 
 
   /**
@@ -50,7 +50,8 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     * factor * factor / factor * factor <epsilon>
     *
     */
-  def buildExpression(): Unit = {
+  def buildExpression: Array[Either[Operator, Term]] = {
+    val value: Array[Either[Operator, Term]] = Array.empty
 
     while (true) {
       currentToken.getType match {
@@ -60,11 +61,12 @@ class Expression(lexer: Lexer, var currentToken: Token) {
 
         case Type.VAR | Type.NUMBER | Type.LPAREN =>
           value :+ Right(nextTerm)
-          currentToken = lexer.nextToken
+          currentToken = lexer.nextToken()
 
-        case _ => return
+        case _ => return value
       }
     }
+    value
   }
 
   def getOperatorType(valOfOp: String): Operator = {
