@@ -17,55 +17,14 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
 
 // TODO: Define expression class and methods for all expression types such that recursively obtain expressions
-class Expression(lexer: Lexer, currentToken: Token) {
+class Expression(lexer: Lexer, var currentToken: Token) {
 
-  /*// Rexpr essentially deals with right hand recursion, lExpr is a expression definition
-  // Rexpr can also be a simple definition, but by design recursion will be forced to rexpr terms as
-  // by definition of the grammar
+  // TODO: Finish implementation such that it is testable against non-branch statements
+  // TODO: Testing for unary and binary statements.
 
-  // DONE: Considered eliminating lExpr recursion using Chomsky normal form
-  // Above is done, asssuming that a the grammar is defined such that we can't derive expression ::= expression
-  // but rather expression ::= (expression). Parentheses group objects, eliminating lExpr recursion
-
-  // TODO: Deal with multiplication and division in factor definition
-  var lExpr, rExpr: Either[Token, Expression]
-
-  currentToken.getType match {
-    case Type.PLUS | Type.MINUS   =>
-      lExpr = Right(new UnaryExpression(Type, nextTerm))
-      rExpr = Right(nextExpr)
-
-    case Type.VAR    =>
-      lExpr = Left(currentToken)
-      //rExpr = Right(nextExpr) Should handle binary expression
-
-    case Type.NUMBER =>
-      lExpr = Left(currentToken)
-      //rExpr = Right(nextExpr) should handle binary expression possibility
-
-    case Type.MULT | Type.DIV  => _ // Theoretically this is handled by nextTerm
-
-  }
-
-  def nextExpr: Expression = {
-    new Expression(lexer, lexer.nextToken())
-  }
-
-  def nextTerm: Either[Token, Expression] = {
-    val nextToken = lexer.nextToken()
-
-    nextToken.getType match {
-      case Type.VAR | Type.NUMBER                         =>
-        Left(nextToken)
-      case Type.MULT | Type.DIV | Type.PLUS | Type.MINUS  =>
-        Right(new BinaryExpression(nextToken.getType, lexer))//TODO: Correctly recursively define a binary expression. Perhaps remove
-      case Type.LPAREN                                    =>
-        val expr = nextExpr
-        Right(expr)
-    }
-
-  }*/
-
+  // TODO: Consider expressions being described as below. Using array allows for a much easier recursion.
+  //       this allows expressionss to be added by reading whole expression at once.
+  // lExpr, rExpr: Array[Either[Term, BinaryOperator]]
   /**
     * If we enter an expression class, if the first thing we see is a plus or minus, we know that we have a unary
     * expression. This is of the form
@@ -75,77 +34,8 @@ class Expression(lexer: Lexer, currentToken: Token) {
     *
     */
 
+  val value: Array[Either[Operator, Term]]
 
-  // TODO: Consider expressions being described as below. Using array allows for a much easier recursion.
-  //       this allows expressionss to be added by reading whole expression at once.
-  // lExpr, rExpr: Array[Either[Term, BinaryOperator]]
-  var lExpr, rExpr: Option[Expression]
-
-  currentToken.getType match {
-    case Type.PLUS | Type.MINUS =>
-      lExpr = Option(new UnaryExpression(currentToken.getType, nextTerm))
-      rExpr = nextExpr
-
-    case Type.VAR | Type.NUMBER =>
-      lExpr = Option(new UnaryExpression(currentToken.getType, Left(currentToken)))
-      rExpr = nextExpr
-
-    /*case Type.LPAREN =>
-      lExpr = nextExpr*/
-  }
-
-
-  // TODO: Dealing with binary expression on left hand of expression. I.e in a unary statement
-  // TODO: Dealing with binary expression on right hand of expression.
-  /**
-    * Passed to sub expressions in tree so as to recursively build the AST
-    * @return Next term may be a token or a nested expression, hidden by parentheses
-    */
-
-    // Array[Either[Factor, BinaryOperator]] Factor:t = Either[Token, Expression]
-
-  def nextTerm: Either[Token, Expression] = {
-    val nextToken = lexer.nextToken()
-
-    nextToken.getType match {
-      case Type.VAR | Type.NUMBER =>
-        val buf = lexer.nextToken()
-        buf.getType match {
-          case Type.MULT | Type.DIV => Right(new BinaryTerm(Left(nextToken), buf, lexer))
-          case _ => Left(nextToken)
-        }
-
-      case Type.LPAREN =>
-        val expr = new Expression(lexer, nextToken)
-        assert(lexer.nextToken().getType == Type.RPAREN)
-        val buf = lexer.nextToken()
-        buf.getType match {
-          case Type.MULT | Type.DIV => Right(new BinaryExpression(Option(expr), buf.getType, lexer))
-          case _                    => Right(expr)
-        }
-    }
-
-
-  }
-
-  /**
-    * Read next token in stream, and recursively obtain the right expression.
-    *
-    * Left recursion is eliminated via this method.
-    * @return Definition for the right expression
-    */
-
-  def nextExpr: Option[Expression] = {
-    val nextToken = lexer.nextToken()
-
-    nextToken.getType match {
-      case Type.PLUS | Type.MINUS =>
-        Option(new BinaryExpression(lExpr, nextToken.getType, lexer))
-
-      case _ => Option.empty
-    }
-
-  }
 
   /**
     * This method should recursively build the entire abstract syntaxt for expression so as to handle
@@ -160,13 +50,60 @@ class Expression(lexer: Lexer, currentToken: Token) {
     * factor * factor / factor * factor <epsilon>
     *
     */
-  def buildExpression()
+  def buildExpression(): Unit = {
 
-  // DONE: Define the recursive functions which handle case statements above
-  // DONE: Consider not making class abstract but a general concrete type
-  // TODO: Finish implementation such that it is testable against non-branch statements
-  // TODO: Testing for unary and binary statements.
+    while (true) {
+      currentToken.getType match {
+        case Type.PLUS | Type.MINUS =>
+          value :+ getOperatorType(currentToken.getValue.get)
+          currentToken = lexer.nextToken()
 
+        case Type.VAR | Type.NUMBER | Type.LPAREN =>
+          value :+ Right(nextTerm)
+          currentToken = lexer.nextToken
+
+        case _ => return
+      }
+    }
+  }
+
+  def getOperatorType(valOfOp: String): Operator = {
+    if (value.length == 0) {
+      new UnaryOperator(valOfOp)
+    }
+    else {
+      new BinaryOperator(valOfOp)
+    }
+  }
+
+  case class Term(value: Array[Either[Factor, BinaryOperator ]])
+
+  case class Factor(value: Either[String, Expression])
+
+  def nextTerm: Term = {
+    val factors: Array[Either[Factor, BinaryOperator]] = Array.empty
+
+    while(true) {
+      currentToken.getType match {
+        case Type.VAR | Type.NUMBER =>
+          factors :+ Left(Factor(Left(currentToken.getValue.get)))
+          currentToken = lexer.nextToken()
+        case Type.LPAREN =>
+          factors :+ Left(Factor(Right(new Expression(lexer, lexer.nextToken()))))
+          currentToken = lexer.nextToken()
+        case Type.DIV | Type.MULT =>
+          factors :+ Right(new BinaryOperator(currentToken.getValue.get))
+          currentToken = lexer.nextToken()
+        case Type.RPAREN => // Skip over RPAREN on end of expression in factors
+          currentToken = lexer.nextToken()
+          return Term(factors)
+        case _ =>
+          return Term(factors)
+
+      }
+    }
+    Term(factors)
+  }
 
 
 
