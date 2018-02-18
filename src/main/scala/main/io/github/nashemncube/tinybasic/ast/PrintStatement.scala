@@ -1,7 +1,7 @@
 package main.io.github.nashemncube.tinybasic.ast
 
 import main.io.github.nashemncube.tinybasic.lexer._
-import main.io.github.nashemncube.tinybasic.ast.Expression
+
 /**
   * Created by nashe on 29/01/2018.
   *
@@ -20,7 +20,7 @@ import main.io.github.nashemncube.tinybasic.ast.Expression
 
     digit ::= 0 | 1 | 2 | 3 | ... | 8 | 9
   */
-class PrintStatement(lexer: Lexer) extends Statement {
+class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
 
   /**
     * We need to recursively define the values expr-list
@@ -31,15 +31,15 @@ class PrintStatement(lexer: Lexer) extends Statement {
     */
   // TODO: Deal with parentheses indication nested expressions
   var currentToken: Token = lexer.nextToken()
-  override var args: Array[Either[Token, Expression]]
+  override var args: Array[Either[Token, Expression]] = getArgs()
 
-  def apply(): Unit = {
+  /*def apply(): Unit = {
     currentToken.getType match {
-      case Type.COMMA                                      =>
+      case Type.COMMA =>
         args :+ Left(currentToken)
         currentToken = lexer.nextToken()
         this.apply()
-      case Type.STRING                                     =>
+      case Type.STRING =>
         args :+ Left(currentToken)
         currentToken = lexer.nextToken()
         this.apply()
@@ -49,8 +49,11 @@ class PrintStatement(lexer: Lexer) extends Statement {
         this.apply()
       case _ =>
         return
+    }
+  }*/
+
+  override def getArgs(): Array[Either[Token, Expression]] = {
+    throw new RuntimeException("Implement me")
   }
-
-
 
 }

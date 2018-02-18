@@ -86,13 +86,11 @@ class Parser(lexer: Lexer) {
       case "INPUT"  => new InputStatement(lexer)
       case "LET"    => new LetStatement(lexer)
       case "GOSUB"  => throw new RuntimeException("Implement me")
-      case "RETURN" => new ReturnStatement
-      case "END"    => new EndStatement
+      case "RETURN" => new ReturnStatement(lexer)
+      case "END"    => new EndStatement(lexer)
       case _        => throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
     }
   }
-
-  def
 
 
 

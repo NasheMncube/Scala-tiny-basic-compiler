@@ -19,12 +19,12 @@ import main.io.github.nashemncube.tinybasic.lexer._
   */
 
 // TODO: Deal with parentheses for nested expressions
-class LetStatement(lexer: Lexer) extends Statement {
-  override var args: Array[Either[Token, Expression]]
+class LetStatement(lexer: Lexer) extends Statement(lexer) {
+  override var args: Array[Either[Token, Expression]] = getArgs()
   var currentToken: Token = lexer.nextToken
   var inExpr = false // Necessary for pattern matching var in arguments to let statement and not to expression and vice versa
 
-  def apply(): Unit = {
+  /*def apply(): Unit = {
     currentToken.getType match {
       case Type.EQ =>
         args :+ Left(currentToken)
@@ -40,5 +40,9 @@ class LetStatement(lexer: Lexer) extends Statement {
         currentToken = lexer.nextToken()
         //this.apply()
     }
+  }*/
+
+  override def getArgs(): Array[Either[Token, Expression]] = {
+    throw new RuntimeException("Implement")
   }
 }

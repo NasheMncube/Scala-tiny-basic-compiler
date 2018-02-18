@@ -19,10 +19,10 @@ import main.io.github.nashemncube.tinybasic.lexer._
 // TODO: Define expression class and methods for all expression types such that recursively obtain expressions
 class Expression(lexer: Lexer, var currentToken: Token) {
 
-  // TODO: Finish implementation such that it is testable against non-branch statements
+  // DONE: Finish implementation such that it is testable against non-branch statements
   // TODO: Testing for unary and binary statements.
 
-  // TODO: Consider expressions being described as below. Using array allows for a much easier recursion.
+  // DONE: Consider expressions being described as below. Using array allows for a much easier recursion.
   //       this allows expressionss to be added by reading whole expression at once.
   // lExpr, rExpr: Array[Either[Term, BinaryOperator]]
   /**
@@ -106,6 +106,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     }
     Term(factors)
   }
+
 
 
 

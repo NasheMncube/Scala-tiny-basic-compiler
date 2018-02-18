@@ -11,12 +11,12 @@ import main.io.github.nashemncube.tinybasic.lexer._
   * var ::= A | B | C ... | Y | Z
   *
   */
-class InputStatement(lexer: Lexer) extends Statement {
+class InputStatement(lexer: Lexer) extends Statement(lexer) {
 
-  override var args: Array[String]
+  override var args: Array[Either[Token, Expression]] = getArgs()
   var currentToken: Token = lexer.nextToken()
 
-  def apply(): Unit = {
+  /*f apply(): Unit = {
     currentToken.getType match {
       case Type.COMMA =>
         args :+ ","
@@ -29,5 +29,10 @@ class InputStatement(lexer: Lexer) extends Statement {
       case _          =>
         return
     }
+  }*/
+
+  override def getArgs(): Array[Either[Token, Expression]] = {
+    throw new RuntimeException("Implement me")
   }
+
 }

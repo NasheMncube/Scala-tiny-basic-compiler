@@ -1,6 +1,6 @@
 package main.io.github.nashemncube.tinybasic.ast
 
-import main.io.github.nashemncube.tinybasic.lexer.Lexer
+import main.io.github.nashemncube.tinybasic.lexer._
 /**
   * Created by nashe on 29/01/2018.
   *
@@ -12,6 +12,10 @@ import main.io.github.nashemncube.tinybasic.lexer.Lexer
   *
   *
   */
-class BranchStatement(lexer:Lexer) extends Statement{
-  override var args: Array[Any] = _
+class BranchStatement(lexer:Lexer) extends Statement(lexer){
+  override var args: Array[Either[Token, Expression]] = getArgs()
+
+  override def getArgs(): Array[Either[Token, Expression]] = {
+    throw new RuntimeException("Implement me")
+  }
 }
