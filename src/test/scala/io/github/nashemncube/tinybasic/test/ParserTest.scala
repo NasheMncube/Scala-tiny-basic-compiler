@@ -1,16 +1,19 @@
 package io.github.nashemncube.tinybasic.test
 
 import org.scalatest._
-import main.io.github.nashemncube.tinybasic.{lexer, parser}
+
+import main.io.github.nashemncube.tinybasic.lexer._
+import main.io.github.nashemncube.tinybasic.parser._
+import main.io.github.nashemncube.tinybasic.ast._
 
 
-class ParserTest {
+class ParserTest extends FunSuite{
 
-  test("Test END statement"){
+  test("Test EndStatement return from parser") {
     val lexer = new Lexer("END")
     val parser = new Parser(lexer)
 
-    assert(new EndStatment() == parser.statement)
+    assert(parser.statement.isInstanceOf[EndStatement])
   }
 
 }
