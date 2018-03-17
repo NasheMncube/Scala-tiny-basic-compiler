@@ -1,5 +1,6 @@
 package main.io.github.nashemncube.tinybasic.ast
 
+
 import main.io.github.nashemncube.tinybasic.lexer._
 
 /**
@@ -33,27 +34,30 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
   var currentToken: Token = lexer.nextToken()
   override var args: Array[Either[Token, Expression]] = getArgs()
 
-  /*def apply(): Unit = {
-    currentToken.getType match {
-      case Type.COMMA =>
-        args :+ Left(currentToken)
-        currentToken = lexer.nextToken()
-        this.apply()
-      case Type.STRING =>
-        args :+ Left(currentToken)
-        currentToken = lexer.nextToken()
-        this.apply()
-      case Type.PLUS | Type.MINUS | Type.VAR | Type.NUMBER | Type.LPAREN =>
-        args :+ Right(new Expression(lexer, currentToken))
-        currentToken = lexer.nextToken()
-        this.apply()
-      case _ =>
-        return
-    }
-  }*/
-
   override def getArgs(): Array[Either[Token, Expression]] = {
-    throw new RuntimeException("Implement me")
+
+    var ret: Array[Either[Token, Expression]] = Array.empty
+
+    currentToken.getType match {
+
+      case Type.EOF | Type.LF   =>
+        return ret
+
+      case Type.COMMA           =>
+        currentToken = lexer.nextToken()
+        ret ++ getArgs()
+
+      case Type.STRING          =>
+        ret :+ Left(currentToken)
+        currentToken = lexer.nextToken()
+        ret ++ getArgs()
+
+      case _                    =>
+        ret :+ Right(new Expression(lexer, currentToken))
+
+    }
+
+    ret
   }
 
 }

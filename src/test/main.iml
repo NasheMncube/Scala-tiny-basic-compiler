@@ -12,5 +12,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="scala-sdk-2.12.4 (3)" level="application" />
     <orderEntry type="library" exported="" name="org.scalatest:scalatest_2.9.0:1.8" level="project" />
+    <orderEntry type="library" name="sbt: org.scala-lang:scala-library:2.11.6:jar" level="project" />
   </component>
 </module>
