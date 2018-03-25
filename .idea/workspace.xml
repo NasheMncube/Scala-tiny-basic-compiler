@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4008131-1b83-4002-8df5-61a326ec6934" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" />
       <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" />
+      <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
       <change beforePath="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,8 +28,8 @@
       <file leaf-file-name="ParserTest.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="236">
-              <caret line="44" column="63" lean-forward="false" selection-start-line="44" selection-start-column="63" selection-end-line="44" selection-end-column="63" />
+            <state relative-caret-position="208">
+              <caret line="30" column="23" lean-forward="false" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
               <folding>
                 <element signature="e#46#103#0" expanded="true" />
               </folding>
@@ -35,21 +37,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BinaryOperator.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/BinaryOperator.java">
+      <file leaf-file-name="PrintStatement.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="35" lean-forward="true" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
+            <state relative-caret-position="121">
+              <caret line="47" column="21" lean-forward="false" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PrintStatement.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala">
+      <file leaf-file-name="Lexer.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="487">
-              <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+            <state relative-caret-position="126">
+              <caret line="176" column="12" lean-forward="false" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -58,8 +60,8 @@
       <file leaf-file-name="Expression.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="84" column="24" lean-forward="true" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
+            <state relative-caret-position="139">
+              <caret line="100" column="26" lean-forward="false" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
               <folding>
                 <element signature="e#50#101#0" expanded="true" />
               </folding>
@@ -67,27 +69,13 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Statement.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/Statement.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="12" column="0" lean-forward="false" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ReturnStatement.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/ReturnStatement.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>comma</find>
+      <find>,</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -110,13 +98,13 @@
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/BranchStatement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/ReturnStatement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/EndStatement.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/BranchStatement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/ReturnStatement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/Statement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/parser/Parser.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" />
       </list>
     </option>
@@ -483,44 +471,44 @@
       <workItem from="1521241386936" duration="415000" />
       <workItem from="1521241830629" duration="440000" />
       <workItem from="1521242305736" duration="4132000" />
-      <workItem from="1522007155747" duration="9536000" />
+      <workItem from="1522007155747" duration="11344000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 33m 59s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 10m 12s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 37m 12s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 10m 58s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 41m 44s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 11m 56s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 42m 36s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 13m 11s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 43m 21s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 13m 55s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 43m 54s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 14m 06s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 44m 19s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 14m 58s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 44m 41s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 15m 12s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 45m 06s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 17m 50s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="ScalaTests_in_'test' - 2018.03.25 at 23h 46m 52s.xml">
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 18m 21s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15071000" />
+    <option name="totallyTimeSpent" value="16879000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -544,7 +532,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -885,6 +873,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/parser/Parser.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="686">
+          <caret line="88" column="46" lean-forward="true" selection-start-line="88" selection-start-column="46" selection-end-line="88" selection-end-column="46" />
+          <folding>
+            <element signature="e#53#112#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/BinaryOperator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="2" lean-forward="false" selection-start-line="0" selection-start-column="2" selection-end-line="0" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/Statement.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
@@ -901,54 +907,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/parser/Parser.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="88" column="46" lean-forward="true" selection-start-line="88" selection-start-column="46" selection-end-line="88" selection-end-column="46" />
-          <folding>
-            <element signature="e#53#112#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="130" column="10" lean-forward="false" selection-start-line="130" selection-start-column="10" selection-end-line="130" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/BinaryOperator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="35" lean-forward="true" selection-start-line="0" selection-start-column="35" selection-end-line="0" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="84" column="24" lean-forward="true" selection-start-line="84" selection-start-column="24" selection-end-line="84" selection-end-column="24" />
+        <state relative-caret-position="139">
+          <caret line="100" column="26" lean-forward="false" selection-start-line="100" selection-start-column="26" selection-end-line="100" selection-end-column="26" />
           <folding>
             <element signature="e#50#101#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="47" column="21" lean-forward="false" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="176" column="12" lean-forward="false" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="44" column="63" lean-forward="false" selection-start-line="44" selection-start-column="63" selection-end-line="44" selection-end-column="63" />
+        <state relative-caret-position="208">
+          <caret line="30" column="23" lean-forward="false" selection-start-line="30" selection-start-column="23" selection-end-line="30" selection-end-column="23" />
           <folding>
             <element signature="e#46#103#0" expanded="true" />
           </folding>

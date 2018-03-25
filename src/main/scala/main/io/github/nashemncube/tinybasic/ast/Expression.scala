@@ -61,7 +61,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
           value.add(Left(getOperatorType(currentToken.getValue.get)))
           currentToken = lexer.nextToken()
 
-        case Type.VAR | Type.NUMBER | Type.LPAREN =>
+        case Type.VAR | Type.NUMBER =>
           value.add(Right(nextTerm))
           currentToken = lexer.nextToken()
 
@@ -88,6 +88,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     val factors: ArrayList[Either[Factor, BinaryOperator]] = new ArrayList()
 
     while(true) {
+
       currentToken.getType match {
         case Type.VAR | Type.NUMBER =>
           factors.add(Left(Factor(Left(currentToken.getValue.get))))

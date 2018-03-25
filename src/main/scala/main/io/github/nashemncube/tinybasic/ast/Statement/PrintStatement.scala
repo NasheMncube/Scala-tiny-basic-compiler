@@ -57,6 +57,7 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
 
       case _                    =>
         ret.add(Right(new Expression(lexer, currentToken)))
+        //currentToken = lexer.nextToken()
 
     }
 

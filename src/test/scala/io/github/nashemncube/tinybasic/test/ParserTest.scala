@@ -28,7 +28,7 @@ class ParserTest extends FunSuite{
     val lexer = new Lexer(
       "PRINT \"Hello world\" \n "
       +"PRINT \"Hello again\" \n "
-      +"PRINT 12, (24)"
+      +"PRINT 12,5,4,3,4"
       )
     val parser = new Parser(lexer)
 

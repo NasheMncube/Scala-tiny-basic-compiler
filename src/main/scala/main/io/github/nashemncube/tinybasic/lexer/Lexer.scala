@@ -155,7 +155,7 @@ class Lexer(reader: Reader) {
       do{
         val next = peek(this.reader)
         if(!isAlpha(next)) {
-          reader.skip(1)
+          //reader.skip(1)
           break
         }
 
@@ -174,7 +174,7 @@ class Lexer(reader: Reader) {
       do{
         val next = peek(this.reader)
         if(!isInteger(next)) {
-          reader.skip(1)
+          //reader.skip(1)
           break
         }
 
