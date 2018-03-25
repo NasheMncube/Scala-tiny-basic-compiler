@@ -33,10 +33,9 @@ class ParserTest extends FunSuite{
 
     val s1 = parser.statement()
     assert(s1.isInstanceOf[PrintStatement])
-    //print(s1.args.length)
-    //s1.args.foreach(te => print(te.left.get))
-    //print(s1.args.get(0).left.get.getValue.get)
     assert(s1.args.get(0) == (Left(new Token(Type.STRING, Option("Hello world\"")))))
+
+    val s2 = parser.statement()
     //ssert(s1.args.get(1).right.get.)
 
 

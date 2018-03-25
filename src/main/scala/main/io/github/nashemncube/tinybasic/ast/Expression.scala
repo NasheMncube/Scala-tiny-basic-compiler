@@ -1,6 +1,8 @@
 package main.io.github.nashemncube.tinybasic.ast
 
 import main.io.github.nashemncube.tinybasic.lexer._
+
+import java.util.ArrayList
 /**
   * Created by nashe on 29/01/2018.
   *
@@ -34,7 +36,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     *
     */
 
-  val value: Array[Either[Operator, Term]] = buildExpression
+  val value: ArrayList[Either[Operator, Term]] = buildExpression
 
 
   /**
@@ -50,17 +52,17 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     * factor * factor / factor * factor <epsilon>
     *
     */
-  def buildExpression: Array[Either[Operator, Term]] = {
-    val value: Array[Either[Operator, Term]] = Array.empty
+  def buildExpression: ArrayList[Either[Operator, Term]] = {
+    val value: ArrayList[Either[Operator, Term]] = new ArrayList()
 
     while (true) {
       currentToken.getType match {
         case Type.PLUS | Type.MINUS =>
-          value :+ getOperatorType(currentToken.getValue.get)
+          value.add(Left(getOperatorType(currentToken.getValue.get)))
           currentToken = lexer.nextToken()
 
         case Type.VAR | Type.NUMBER | Type.LPAREN =>
-          value :+ Right(nextTerm)
+          value.add(Right(nextTerm))
           currentToken = lexer.nextToken()
 
         case _ => return value
@@ -70,7 +72,7 @@ class Expression(lexer: Lexer, var currentToken: Token) {
   }
 
   def getOperatorType(valOfOp: String): Operator = {
-    if (value.length == 0) {
+    if (value.isEmpty) {
       new UnaryOperator(valOfOp)
     }
     else {
@@ -78,23 +80,23 @@ class Expression(lexer: Lexer, var currentToken: Token) {
     }
   }
 
-  case class Term(value: Array[Either[Factor, BinaryOperator ]])
+  case class Term(value: ArrayList[Either[Factor, BinaryOperator ]])
 
   case class Factor(value: Either[String, Expression])
 
   def nextTerm: Term = {
-    val factors: Array[Either[Factor, BinaryOperator]] = Array.empty
+    val factors: ArrayList[Either[Factor, BinaryOperator]] = new ArrayList()
 
     while(true) {
       currentToken.getType match {
         case Type.VAR | Type.NUMBER =>
-          factors :+ Left(Factor(Left(currentToken.getValue.get)))
+          factors.add(Left(Factor(Left(currentToken.getValue.get))))
           currentToken = lexer.nextToken()
         case Type.LPAREN =>
-          factors :+ Left(Factor(Right(new Expression(lexer, lexer.nextToken()))))
+          factors.add(Left(Factor(Right(new Expression(lexer, lexer.nextToken())))))
           currentToken = lexer.nextToken()
         case Type.DIV | Type.MULT =>
-          factors :+ Right(new BinaryOperator(currentToken.getValue.get))
+          factors.add(Right(new BinaryOperator(currentToken.getValue.get)))
           currentToken = lexer.nextToken()
         case Type.RPAREN => // Skip over RPAREN on end of expression in factors
           currentToken = lexer.nextToken()
