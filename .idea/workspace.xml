@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e4008131-1b83-4002-8df5-61a326ec6934" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" />
-      <change beforePath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
-      <change beforePath="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" afterPath="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -25,7 +22,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ParserTest.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ParserTest.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="208">
@@ -47,11 +44,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lexer.scala" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Lexer.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="176" column="12" lean-forward="false" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
+            <state relative-caret-position="86">
+              <caret line="157" column="12" lean-forward="false" selection-start-line="157" selection-start-column="12" selection-end-line="157" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -104,8 +101,8 @@
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/parser/Parser.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Statement/PrintStatement.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/ast/Expression.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala" />
       </list>
     </option>
   </component>
@@ -471,14 +468,11 @@
       <workItem from="1521241386936" duration="415000" />
       <workItem from="1521241830629" duration="440000" />
       <workItem from="1521242305736" duration="4132000" />
-      <workItem from="1522007155747" duration="11344000" />
+      <workItem from="1522007155747" duration="11423000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 10m 12s.xml">
-      <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
     <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 10m 58s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
@@ -506,9 +500,12 @@
     <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 18m 21s.xml">
       <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
+    <history-entry file="ScalaTests_in_'test' - 2018.03.26 at 00h 18m 36s.xml">
+      <configuration name="ScalaTests in 'test'" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="16879000" />
+    <option name="totallyTimeSpent" value="16958000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -521,7 +518,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="778" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -532,9 +528,9 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3287879" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26979" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -925,14 +921,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="176" column="12" lean-forward="false" selection-start-line="176" selection-start-column="12" selection-end-line="176" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/io/github/nashemncube/tinybasic/test/ParserTest.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="208">
@@ -940,6 +928,14 @@
           <folding>
             <element signature="e#46#103#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/io/github/nashemncube/tinybasic/lexer/Lexer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="157" column="12" lean-forward="false" selection-start-line="157" selection-start-column="12" selection-end-line="157" selection-end-column="12" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -10,7 +10,7 @@ import java.util.ArrayList
 
     term ::= factor ((*|/) factor)*
 
-    factor ::= var | number | '('expression')'
+    factor ::= var | number | (expression)
 
     var ::= A | B | C ... | Y | Z
 
@@ -93,15 +93,15 @@ class Expression(lexer: Lexer, var currentToken: Token) {
         case Type.VAR | Type.NUMBER =>
           factors.add(Left(Factor(Left(currentToken.getValue.get))))
           currentToken = lexer.nextToken()
-        case Type.LPAREN =>
-          factors.add(Left(Factor(Right(new Expression(lexer, lexer.nextToken())))))
-          currentToken = lexer.nextToken()
+//        case Type.LPAREN =>
+//          factors.add(Left(Factor(Right(new Expression(lexer, lexer.nextToken())))))
+//          currentToken = lexer.nextToken()
         case Type.DIV | Type.MULT =>
           factors.add(Right(new BinaryOperator(currentToken.getValue.get)))
           currentToken = lexer.nextToken()
-        case Type.RPAREN => // Skip over RPAREN on end of expression in factors
-          currentToken = lexer.nextToken()
-          return Term(factors)
+//        case Type.RPAREN => // Skip over RPAREN on end of expression in factors
+//          currentToken = lexer.nextToken()
+//          return Term(factors)
         case _ =>
           return Term(factors)
 
