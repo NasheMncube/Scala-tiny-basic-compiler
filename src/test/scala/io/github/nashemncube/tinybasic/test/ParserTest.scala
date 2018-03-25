@@ -26,19 +26,23 @@ class ParserTest extends FunSuite{
 
   test("Test PrintStatement return from parser for strings") {
     val lexer = new Lexer(
-      "PRINT \"Hello world\" \n "// +
-      //"PRINT 12, 34, 567\n "// +
+      "PRINT \"Hello world\" \n " +
+      "PRINT \"Hello again\" \n "// +
       // "PRINT "
       )
     val parser = new Parser(lexer)
 
     val s1 = parser.statement()
     assert(s1.isInstanceOf[PrintStatement])
-    print(s1.args.get(0).left.get.getValue)
+
     assert(s1.args.get(0) == (Left(new Token(Type.STRING, Option("Hello world")))))
 
-    //val s2 = parser.statement()
-    //ssert(s1.args.get(1).right.get.)
+    parser.advance()
+    //parser.advance()
+
+    val s2 = parser.statement()
+    print(s2.args.get(0).left.get.getValue.get)
+    assert(s2.args.get(0) == Left(new Token(Type.STRING, Option("Hello again"))))
 
 
   }

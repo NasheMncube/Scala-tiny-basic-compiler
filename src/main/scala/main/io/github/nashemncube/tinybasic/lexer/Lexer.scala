@@ -128,7 +128,7 @@ class Lexer(reader: Reader) {
 
       while(!next.equals('\"'.toInt)){
         next = peek(this.reader)
-        print(ret)
+        //print(ret)
 
         if(next == -1) throw new IOException("EOF found in input string")
         if(next.equals('\"'.toInt)) {
