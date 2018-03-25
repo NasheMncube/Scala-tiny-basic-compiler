@@ -1,7 +1,7 @@
 package io.github.nashemncube.tinybasic.test
 
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Array
 import org.scalatest._
-
 import main.io.github.nashemncube.tinybasic.lexer._
 import main.io.github.nashemncube.tinybasic.parser._
 import main.io.github.nashemncube.tinybasic.ast._
@@ -25,15 +25,19 @@ class ParserTest extends FunSuite{
 
   test("Test PrintStatement return from parser for strings") {
     val lexer = new Lexer(
-      "PRINT \"Hello world\" \n " //+
-      //"PRINT 12, 34, 567\n " +
-       // "PRINT "
+      "PRINT \"Hello world\" \n" +
+      "PRINT 12, 34, 567\n "// +
+      // "PRINT "
       )
     val parser = new Parser(lexer)
 
     val s1 = parser.statement()
     assert(s1.isInstanceOf[PrintStatement])
-    assert(s1.args == Left(new Token(Type.STRING, Option("Hello world"))))
+    //print(s1.args.length)
+    //s1.args.foreach(te => print(te.left.get))
+    //print(s1.args.get(0).left.get.getValue.get)
+    assert(s1.args.get(0) == (Left(new Token(Type.STRING, Option("Hello world\"")))))
+    //ssert(s1.args.get(1).right.get.)
 
 
   }

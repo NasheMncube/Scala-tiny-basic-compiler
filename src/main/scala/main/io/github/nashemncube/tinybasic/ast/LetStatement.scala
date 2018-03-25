@@ -1,7 +1,10 @@
 package main.io.github.nashemncube.tinybasic.ast
 
 import main.io.github.nashemncube.tinybasic.lexer._
+
+import java.util.ArrayList
 /**
+  *
   * Created by nashe on 30/01/2018.
   *
   * statement ::= LET var = expression
@@ -20,7 +23,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
 
 // TODO: Deal with parentheses for nested expressions
 class LetStatement(lexer: Lexer) extends Statement(lexer) {
-  override var args: Array[Either[Token, Expression]] = getArgs()
+  override var args: ArrayList[Either[Token, Expression]] = getArgs()
   var currentToken: Token = lexer.nextToken
   var inExpr = false // Necessary for pattern matching var in arguments to let statement and not to expression and vice versa
 
@@ -42,7 +45,7 @@ class LetStatement(lexer: Lexer) extends Statement(lexer) {
     }
   }*/
 
-  override def getArgs(): Array[Either[Token, Expression]] = {
+  override def getArgs(): ArrayList[Either[Token, Expression]] = {
     throw new RuntimeException("Implement")
   }
 }

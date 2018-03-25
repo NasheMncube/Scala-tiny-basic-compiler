@@ -124,19 +124,21 @@ class Lexer(reader: Reader) {
   @throws
   def nextStringToken(first: Int): Token = {
     var ret = ""
+    var next: Int = -1
 
-    breakable {
-      do{
-        val next = peek(this.reader)
+      while(!next.equals('\"'.toInt)){
+        next = peek(this.reader)
+
         if(next == -1) throw new IOException("EOF found in input string")
-        else if(next == '\"') break
+        if(next.equals('\"'.toInt)) new Token(Type.STRING, Option(ret))
 
         reader.skip(1)
         ret += next.toChar.toString
-      } while(true)
-    }
 
-    new Token(Type.STRING, Option(ret))
+      }
+
+
+    throw new IOException("Syntax error: String missing terminating character")
   }
 
   @throws

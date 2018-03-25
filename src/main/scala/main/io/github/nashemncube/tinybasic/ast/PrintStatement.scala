@@ -1,6 +1,8 @@
 package main.io.github.nashemncube.tinybasic.ast
 
 
+import java.util.ArrayList
+
 import main.io.github.nashemncube.tinybasic.lexer._
 
 /**
@@ -30,13 +32,13 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
     * Expr-list is defined as comma seperateed strings/expressions.
     *
     */
-  // TODO: Deal with parentheses indication nested expressions
+
   var currentToken: Token = lexer.nextToken()
-  override var args: Array[Either[Token, Expression]] = getArgs()
+  override var args: ArrayList[Either[Token, Expression]] = getArgs()
 
-  override def getArgs(): Array[Either[Token, Expression]] = {
+  override def getArgs(): ArrayList[Either[Token, Expression]] = {
 
-    var ret: Array[Either[Token, Expression]] = Array.empty
+    var ret: ArrayList[Either[Token, Expression]] = new ArrayList()
 
     currentToken.getType match {
 
@@ -45,15 +47,15 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
 
       case Type.COMMA           =>
         currentToken = lexer.nextToken()
-        ret ++ getArgs()
+        getArgs.forEach(tOrE => ret.add(tOrE))
 
       case Type.STRING          =>
-        ret :+ Left(currentToken)
+        ret.add(Left(currentToken))
         currentToken = lexer.nextToken()
-        ret ++ getArgs()
+        getArgs.forEach(tOrE => ret.add(tOrE))
 
       case _                    =>
-        ret :+ Right(new Expression(lexer, currentToken))
+        ret.add(Right(new Expression(lexer, currentToken)))
 
     }
 

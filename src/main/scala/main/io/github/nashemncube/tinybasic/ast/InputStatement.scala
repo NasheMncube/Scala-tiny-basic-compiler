@@ -2,6 +2,8 @@ package main.io.github.nashemncube.tinybasic.ast
 
 
 import main.io.github.nashemncube.tinybasic.lexer._
+
+import java.util.ArrayList
 /**
   * Created by nashe on 30/01/2018.
   *
@@ -13,7 +15,7 @@ import main.io.github.nashemncube.tinybasic.lexer._
   */
 class InputStatement(lexer: Lexer) extends Statement(lexer) {
 
-  override var args: Array[Either[Token, Expression]] = getArgs()
+  override var args: ArrayList[Either[Token, Expression]] = getArgs()
   var currentToken: Token = lexer.nextToken()
 
   /*f apply(): Unit = {
@@ -31,7 +33,7 @@ class InputStatement(lexer: Lexer) extends Statement(lexer) {
     }
   }*/
 
-  override def getArgs(): Array[Either[Token, Expression]] = {
+  override def getArgs(): ArrayList[Either[Token, Expression]] = {
     throw new RuntimeException("Implement me")
   }
 

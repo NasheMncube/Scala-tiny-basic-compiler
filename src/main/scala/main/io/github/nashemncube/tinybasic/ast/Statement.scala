@@ -1,6 +1,7 @@
 package main.io.github.nashemncube.tinybasic.ast
 
 import main.io.github.nashemncube.tinybasic.lexer._
+import java.util.ArrayList
 /**
   * Created by nashe on 27/01/2018.
   */
@@ -11,8 +12,8 @@ import main.io.github.nashemncube.tinybasic.lexer._
 abstract class Statement(lexer: Lexer) {
 
   // Args can be expressions, varlists, exprlists, other statements and strings
-  var args: Array[Either[Token, Expression]]
+  var args: ArrayList[Either[Token, Expression]]
 
-  def getArgs(): Array[Either[Token, Expression]]
+  def getArgs(): ArrayList[Either[Token, Expression]]
 
 }
