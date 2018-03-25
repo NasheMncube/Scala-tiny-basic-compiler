@@ -1,4 +1,7 @@
 package main.io.github.nashemncube.tinybasic.ast
+
+import main.io.github.nashemncube.tinybasic.ast.Statement.Statement
+
 /**
   * Created by nashe on 27/01/2018.
   */

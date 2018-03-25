@@ -1,8 +1,8 @@
-package main.io.github.nashemncube.tinybasic.ast
-
+package main.io.github.nashemncube.tinybasic.ast.Statement
 
 import java.util.ArrayList
 
+import main.io.github.nashemncube.tinybasic.ast.Expression
 import main.io.github.nashemncube.tinybasic.lexer._
 
 /**
@@ -52,6 +52,7 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
       case Type.STRING          =>
         ret.add(Left(currentToken))
         currentToken = lexer.nextToken()
+
         getArgs.forEach(tOrE => ret.add(tOrE))
 
       case _                    =>

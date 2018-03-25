@@ -1,7 +1,9 @@
 package main.io.github.nashemncube.tinybasic.parser
 
+import main.io.github.nashemncube.tinybasic.ast.Statement._
 import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
 import main.io.github.nashemncube.tinybasic.ast._
+
 
 /**
   * Created by nashe on 27/01/2018.

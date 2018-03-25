@@ -1,7 +1,9 @@
-package main.io.github.nashemncube.tinybasic.ast
+package main.io.github.nashemncube.tinybasic.ast.Statement
 
-import main.io.github.nashemncube.tinybasic.lexer._
 import java.util.ArrayList
+
+import main.io.github.nashemncube.tinybasic.ast.Expression
+import main.io.github.nashemncube.tinybasic.lexer._
 /**
   * Created by nashe on 29/01/2018.
   */

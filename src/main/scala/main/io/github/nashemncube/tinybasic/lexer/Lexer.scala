@@ -128,9 +128,14 @@ class Lexer(reader: Reader) {
 
       while(!next.equals('\"'.toInt)){
         next = peek(this.reader)
+        print(ret)
 
         if(next == -1) throw new IOException("EOF found in input string")
-        if(next.equals('\"'.toInt)) new Token(Type.STRING, Option(ret))
+        if(next.equals('\"'.toInt)) {
+          reader.skip(1)
+          return new Token(Type.STRING, Option(ret))
+        }
+
 
         reader.skip(1)
         ret += next.toChar.toString
@@ -139,6 +144,7 @@ class Lexer(reader: Reader) {
 
 
     throw new IOException("Syntax error: String missing terminating character")
+    //return new Token(Type.STRING, Option(ret))
   }
 
   @throws
@@ -148,7 +154,10 @@ class Lexer(reader: Reader) {
     breakable {
       do{
         val next = peek(this.reader)
-        if(!isAlpha(next)) break
+        if(!isAlpha(next)) {
+          reader.skip(1)
+          break
+        }
 
         reader.skip(1)
         ret += next.toChar.toString()
@@ -164,7 +173,10 @@ class Lexer(reader: Reader) {
     breakable {
       do{
         val next = peek(this.reader)
-        if(!isInteger(next)) break
+        if(!isInteger(next)) {
+          reader.skip(1)
+          break
+        }
 
         reader.skip(1)
         ret += next.toChar.toString
