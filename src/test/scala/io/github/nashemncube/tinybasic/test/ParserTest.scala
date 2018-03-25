@@ -28,7 +28,7 @@ class ParserTest extends FunSuite{
     val lexer = new Lexer(
       "PRINT \"Hello world\" \n "
       +"PRINT \"Hello again\" \n "
-      +"PRINT (12), (24), (36, 45)"
+      +"PRINT 12, (24)"
       )
     val parser = new Parser(lexer)
 
@@ -42,7 +42,7 @@ class ParserTest extends FunSuite{
 
     parser.advance()
     val s3 = parser.statement()
-    (s3.args.get(0).right.get.value.forEach(s => print(s)))
+    (s3.args.get(0).right.get.value.forEach(s => print(s + "\n")))
 
 
 

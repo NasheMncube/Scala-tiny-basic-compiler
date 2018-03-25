@@ -45,7 +45,7 @@ class PrintStatement(lexer: Lexer) extends Statement(lexer = lexer) {
       case Type.EOF | Type.LF   =>
         return ret
 
-      case Type.COMMA           =>
+      case Type.COMMA | Type.LPAREN  | Type.RPAREN   =>
         currentToken = lexer.nextToken()
         getArgs.forEach(tOrE => ret.add(tOrE))
 
