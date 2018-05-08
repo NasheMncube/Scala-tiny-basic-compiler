@@ -185,14 +185,14 @@ class Parser(lexer: Lexer) {
   def exprList: Array[String | Expression] = {
 
     var ret = Array[String | Expression]()
-      token.getType match {
-        case Type.STRING =>
-          ret :+ Left(token)
-          advance()
-        case _ =>
-          ret :+ Right(expression)
-          advance()
-      }
+    token.getType match {
+      case Type.STRING =>
+        ret :+ Left(token)
+        advance()
+      case _ =>
+        ret :+ Right(expression)
+        advance()
+    }
 
     if(token.getType == Type.COMMA) {
       ret :+ Left(token)
