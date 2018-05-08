@@ -148,7 +148,8 @@ class Parser(lexer: Lexer) {
         IfStatement(e1, e2, op, s)
       }
 
-      case _        => throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
+      case _        =>
+        throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
     }
   }
 
