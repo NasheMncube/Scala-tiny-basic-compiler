@@ -59,20 +59,20 @@ class Lexer(reader: Reader) {
   @throws
   def nextToken(): Token = {
     val char = reader.read()
-    if(char == -1) new Token(Type.EOF)
-    else if(char == '\n'.toInt) new Token(Type.LF)
-    else if(char == '+'.toInt) new Token(Type.PLUS)
-    else if(char == '-'.toInt) new Token(Type.MINUS)
-    else if(char == '/'.toInt) new Token(Type.DIV)
-    else if(char == '*'.toInt) new Token(Type.MULT)
-    else if(char == '='.toInt) new Token(Type.EQ)
-    else if(char == '('.toInt) new Token(Type.LPAREN)
-    else if(char == ')'.toInt) new Token(Type.RPAREN)
-    else if(char == ','.toInt) new Token(Type.COMMA)
+    if(char == -1) Token(EOF, Option.empty)
+    else if(char == '\n'.toInt) Token(LF, Option.empty)
+    else if(char == '+'.toInt)  Token(PLUS, Option.empty)
+    else if(char == '-'.toInt)  Token(MINUS, Option.empty)
+    else if(char == '/'.toInt)  Token(DIV, Option.empty)
+    else if(char == '*'.toInt)  Token(MULT, Option.empty)
+    else if(char == '='.toInt)  Token(EQ, Option.empty)
+    else if(char == '('.toInt)  Token(LPAREN, Option.empty)
+    else if(char == ')'.toInt)  Token(RPAREN, Option.empty)
+    else if(char == ','.toInt)  Token(COMMA, Option.empty)
     else if(char == '\"'.toInt) nextStringToken(char)
     else if(char == '>'.toInt || char == '<'.toInt)  nextRelationalToken(char)
     else if(isAlpha(char) && !isAlpha(peek(reader)))
-      new Token(Type.VAR, Option(char.toChar.toString))
+       Token(VAR, Option(char.toChar.toString))
     else if(isAlpha(char))
       nextKeywordToken(char)
     else if(isInteger(char))
@@ -91,14 +91,14 @@ class Lexer(reader: Reader) {
     if(first == '>'.toInt) {
       if (second == '='.toInt) {
         reader.skip(1)
-        new Token(Type.GTE)
+        Token(GTE, Option.empty)
       }
       else if(second == '<') {
         reader.skip(1)
-        new Token(Type.NE)
+        Token(NE, Option.empty)
       } else {
         reader.skip(1)
-        new Token(Type.GT)
+        Token(GT, Option.empty)
       }
     }
     else {
@@ -106,14 +106,14 @@ class Lexer(reader: Reader) {
 
       if(second == '='.toInt){
         reader.skip(1)
-        new Token(Type.LTE)
+        Token(LTE, Option.empty)
       }
       else if(second == '>'.toInt){
         reader.skip(1)
-        new Token(Type.NE)
+        Token(NE, Option.empty)
       } else {
         reader.skip(1)
-        new Token(Type.LT)
+        Token(LT, Option.empty)
       }
 
     }
@@ -133,7 +133,7 @@ class Lexer(reader: Reader) {
         if(next == -1) throw new IOException("EOF found in input string")
         if(next.equals('\"'.toInt)) {
           reader.skip(1)
-          return new Token(Type.STRING, Option(ret))
+          return new Token(STRING, Option(ret))
         }
 
 
@@ -164,7 +164,7 @@ class Lexer(reader: Reader) {
       } while(true)
     }
 
-    new Token(Type.KEYWORD, Option(ret))
+    Token(KEYWORD, Option(ret))
   }
 
   @throws
@@ -183,8 +183,7 @@ class Lexer(reader: Reader) {
       } while(true)
     }
 
-    new Token(Type.NUMBER, Option(ret))
+    Token(NUMBER, Option(ret))
   }
-
 
 }

@@ -2,7 +2,7 @@ package main.io.github.nashemncube.tinybasic.parser
 
 import java.util._
 
-import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
+import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type._ }
 
 // TODO: Testing of parser
 
@@ -58,7 +58,7 @@ class Parser(lexer: Lexer) {
 
   @throws
   def eat(t: Type): Token ={
-    if(t == token.getType){
+    if(t == token){
       token
     }
     else throw new RuntimeException("Type mismatch")
@@ -68,11 +68,11 @@ class Parser(lexer: Lexer) {
   case class Line(v: Option[String], s: Statement)
 
   def line(): Line = {
-    val value = token.getValue
+    val value = token.value
 
-    token.getType match {
-      case Type.NUMBER =>
-        eat(Type.NUMBER)
+    token.t match {
+      case NUMBER =>
+        eat(NUMBER)
         Line(value, statement)
       case _ =>
         Line(Option.empty, statement) // Numberless line consists of only statement
@@ -98,7 +98,7 @@ class Parser(lexer: Lexer) {
   @throws
   def statement: Statement= {
 
-    token.getValue.getOrElse("fail") match { // Statements correspond to keyword type
+    token.value.getOrElse("fail") match { // Statements correspond to keyword type
 
       case "PRINT"  =>
         advance()
@@ -110,7 +110,7 @@ class Parser(lexer: Lexer) {
 
       case "LET"    =>
         advance()
-        val v = eat(Type.VAR); advance()
+        val v = eat(VAR); advance()
         LetStatement(v, expression)
 
       case "RETURN" =>
@@ -125,22 +125,22 @@ class Parser(lexer: Lexer) {
       {
         val e1 = expression
 
-        val op = token.getType match {
-          case Type.GT
-               | Type.GTE
-               | Type.LT
-               | Type.LTE
-               | Type.EQ
-               | Type.NE => token
+        val op = token.t match {
+          case GT
+               | GTE
+               | LT
+               | LTE
+               | EQ
+               | NE => token
           case _ => throw new RuntimeException("No valid op in 'IF' expression")
         }
         advance()
 
         val e2 = expression
 
-        val s = token.getType match {
-          case Type.KEYWORD =>
-            if (token.getValue.get == "THEN") statement
+        val s = token.t match {
+          case KEYWORD =>
+            if (token.value.getOrElse("Fail") == "THEN") statement
             else throw new RuntimeException("No 'THEN' clause to 'IF' statement")
           case _ => throw new RuntimeException("No 'THEN' clause to 'IF' statement")
         }
@@ -149,7 +149,7 @@ class Parser(lexer: Lexer) {
       }
 
       case _        =>
-        throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
+        throw new RuntimeException("Invalid statement in code " + token.value.getOrElse("NO STATEMENT"))
     }
   }
 
@@ -158,17 +158,17 @@ class Parser(lexer: Lexer) {
     var collect = Array[Token | Expression]()
     while (true) {
       try {
-        token.getType match {
-          case Type.PLUS
-               | Type.MINUS
-               | Type.VAR
-               | Type.NUMBER
-               | Type.COMMA
-               | Type.MULT
-               | Type.DIV  =>
+        token.t match {
+          case PLUS
+               | MINUS
+               | VAR
+               | NUMBER
+               | COMMA
+               | MULT
+               | DIV  =>
             collect :+ Left(token)
             advance()
-          case Type.LPAREN =>
+          case LPAREN =>
             advance()
             collect :+ Right(expression)
           case _ => return collect
@@ -186,8 +186,8 @@ class Parser(lexer: Lexer) {
   def exprList: Array[String | Expression] = {
 
     var ret = Array[String | Expression]()
-    token.getType match {
-      case Type.STRING =>
+    token.t match {
+      case STRING =>
         ret :+ Left(token)
         advance()
       case _ =>
@@ -195,7 +195,7 @@ class Parser(lexer: Lexer) {
         advance()
     }
 
-    if(token.getType == Type.COMMA) {
+    if(token.t == COMMA) {
       ret :+ Left(token)
       advance()
       exprList.foreach(i => ret :+ i)
