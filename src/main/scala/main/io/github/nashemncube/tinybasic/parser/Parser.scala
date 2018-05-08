@@ -1,9 +1,10 @@
 package main.io.github.nashemncube.tinybasic.parser
 
-import main.io.github.nashemncube.tinybasic.ast.Statement._
-import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
-import main.io.github.nashemncube.tinybasic.ast._
+import java.util._
 
+import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type}
+
+// TODO: Testing of parser
 
 /**
   * Created by nashe on 27/01/2018.
@@ -19,17 +20,13 @@ import main.io.github.nashemncube.tinybasic.ast._
     statement ::= PRINT expr-list
                   IF expression relop expression THEN statement
                   GOTO expression
-                  INPUT var-list
+
                   LET var = expression
-                  GOSUB expression
-                  RETURN
-                  /*CLEAR*/ Removed
-                  /*LIST*/ Removed
-                  END
 
-    expr-list ::= (string|expression) (, (string|expression) )*
+                  RETURN // DONE
+                  END // DONE
 
-    var-list ::= var (, var)*
+    expr-list ::= (string|expression) (, (string|expression) )
 
     expression ::= (+|-|ε) term ((+|-) term)*
 
@@ -37,17 +34,21 @@ import main.io.github.nashemncube.tinybasic.ast._
 
     factor ::= var | number | (expression)
 
-    var ::= A | B | C ... | Y | Z
+    var ::= A | B | C ... | Y | Z // TERMINAL
 
-    number ::= digit digit*
+    number ::= digit digit* // TERMINAL
 
-    digit ::= 0 | 1 | 2 | 3 | ... | 8 | 9
+    digit ::= 0 | 1 | 2 | 3 | ... | 8 | 9 // TERMINAL
 
-    relop ::= < (>|=|ε) | > (<|=|ε) | =
+    relop ::= < (>|=|ε) | > (<|=|ε) | = // TERMINAL
 
-    string ::= " (a|b|c ... |x|y|z|A|B|C ... |X|Y|Z|digit)* "
+    string ::= " (a|b|c ... |x|y|z|A|B|C ... |X|Y|Z|digit)* " // TERMINAL
   */
 class Parser(lexer: Lexer) {
+
+  type |[A, B] = Either[A, B]
+  type Expression  = Array[Token | Expression]
+  def Expression(x: Either[Token, Expression]*) = Array(x: _ *)
 
   var token: Token = lexer.nextToken()
 
@@ -56,14 +57,15 @@ class Parser(lexer: Lexer) {
   }
 
   @throws
-  def eat(t: Type): Boolean  ={
+  def eat(t: Type): Token ={
     if(t == token.getType){
-      advance()
-      true
+      token
     }
-    else false
+    else throw new RuntimeException("Type mismatch")
   }
 
+
+  case class Line(v: Option[String], s: Statement)
 
   def line(): Line = {
     val value = token.getValue
@@ -71,29 +73,133 @@ class Parser(lexer: Lexer) {
     token.getType match {
       case Type.NUMBER =>
         eat(Type.NUMBER)
-        new Line(value, statement())
+        Line(value, statement)
       case _ =>
-        advance()
-        new Line(statement())// Numberless line consists of only statement
+        Line(Option.empty, statement) // Numberless line consists of only statement
     }
   }
 
-  @throws
-  def statement(): Statement = {
+  sealed trait Statement
 
-    token.getValue.get match { // Statements correspond to keyword type
-      case "PRINT"  => new PrintStatement(lexer)
-      case "IF"     => throw new RuntimeException("Implement me")
-      case "GOTO"   => throw new RuntimeException("Implement me")
-      case "INPUT"  => new InputStatement(lexer)
-      case "LET"    => new LetStatement(lexer)
-      case "GOSUB"  => throw new RuntimeException("Implement me")
-      case "RETURN" => new ReturnStatement(lexer)
-      case "END"    => new EndStatement(lexer)
+  case object ReturnStatement extends Statement
+
+  case object EndStatement    extends Statement
+
+  case class PrintStatement(exList: Array[String | Expression]) extends Statement
+
+  case class LetStatement(v: Token, x: Array[Token | Expression]) extends Statement
+
+  case class IfStatement(x: Array[Token | Expression],
+                         y: Array[Token | Expression],
+                         op: Token, s: Statement) extends Statement
+
+  case class GoTo(x: Array[Token | Expression]) extends Statement
+
+  @throws
+  def statement: Statement= {
+
+    token.getValue.getOrElse("fail") match { // Statements correspond to keyword type
+
+      case "PRINT"  =>
+        advance()
+        PrintStatement(exprList)
+
+      case "GOTO"   =>
+        advance()
+        GoTo(expression)
+
+      case "LET"    =>
+        advance()
+        val v = eat(Type.VAR); advance()
+        LetStatement(v, expression)
+
+      case "RETURN" =>
+        advance()
+        ReturnStatement
+
+      case "END"    =>
+        advance()
+        EndStatement
+
+      case "IF"     =>
+      {
+        val e1 = expression
+
+        val op = token.getType match {
+          case Type.GT
+               | Type.GTE
+               | Type.LT
+               | Type.LTE
+               | Type.EQ
+               | Type.NE => token
+          case _ => throw new RuntimeException("No valid op in 'IF' expression")
+        }
+        advance()
+
+        val e2 = expression
+
+        val s = token.getType match {
+          case Type.KEYWORD =>
+            if (token.getValue.get == "THEN") statement
+            else throw new RuntimeException("No 'THEN' clause to 'IF' statement")
+          case _ => throw new RuntimeException("No 'THEN' clause to 'IF' statement")
+        }
+
+        IfStatement(e1, e2, op, s)
+      }
+
       case _        => throw new RuntimeException("Invalid statement in code " + token.getValue.getOrElse("NO STATEMENT"))
     }
   }
 
+  @throws
+  def expression: Array[Token | Expression] = {
+    var collect = Array[Token | Expression]()
+    while (true) {
+      try {
+        token.getType match {
+          case Type.PLUS
+               | Type.MINUS
+               | Type.VAR
+               | Type.NUMBER
+               | Type.COMMA
+               | Type.MULT
+               | Type.DIV  =>
+            collect :+ Left(token)
+            advance()
+          case Type.LPAREN =>
+            advance()
+            collect :+ Right(expression)
+          case _ => return collect
+        }
 
+      } catch {
+        case _: Exception => throw new RuntimeException("Failed to parse expression")
+      }
+    }
+
+    collect
+  }
+
+  @throws
+  def exprList: Array[String | Expression] = {
+
+    var ret = Array[String | Expression]()
+      token.getType match {
+        case Type.STRING =>
+          ret :+ Left(token)
+          advance()
+        case _ =>
+          ret :+ Right(expression)
+          advance()
+      }
+
+    if(token.getType == Type.COMMA) {
+      ret :+ Left(token)
+      advance()
+      exprList.foreach(i => ret :+ i)
+    }
+    ret
+  }
 
 }
