@@ -29,7 +29,6 @@ import util.control.Breaks._
 class Lexer(reader: Reader) {
 
   def this(str: String) = this(new StringReader(str))
-
   def isInteger(char: Int): Boolean = {
     '0'.toInt <= char && char <= '9'.toInt
   }
@@ -57,7 +56,7 @@ class Lexer(reader: Reader) {
   }
 
   @throws
-  def nextToken(): Token = {
+  def nextToken: Token = {
     val char = reader.read()
     if(char == -1) Token(EOF, Option.empty)
     else if(char == '\n'.toInt) Token(LF, Option.empty)
@@ -78,7 +77,7 @@ class Lexer(reader: Reader) {
     else if(isInteger(char))
       nextNumberToken(char)
     else if(isWhiteSpace(char))
-      nextToken()
+      nextToken
     else
       throw new IOException("Couldn't parse input")
 

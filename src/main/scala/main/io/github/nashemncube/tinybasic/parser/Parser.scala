@@ -1,8 +1,6 @@
 package main.io.github.nashemncube.tinybasic.parser
 
-import java.util._
-
-import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type._ }
+import main.io.github.nashemncube.tinybasic.lexer._
 
 // TODO: Testing of parser
 
@@ -46,14 +44,14 @@ import main.io.github.nashemncube.tinybasic.lexer.{Lexer, Token, Type._ }
   */
 class Parser(lexer: Lexer) {
 
+  case class Expression(args: Array[ Token | Expression])
+  case class ExprList(args: Array[String | Expression])
   type |[A, B] = Either[A, B]
-  type Expression  = Array[Token | Expression]
-  def Expression(x: Either[Token, Expression]*) = Array(x: _ *)
 
-  var token: Token = lexer.nextToken()
+  var token: Token = lexer.nextToken
 
   def advance(): Unit = {
-    token = lexer.nextToken()
+    token = lexer.nextToken
   }
 
   @throws
@@ -85,15 +83,15 @@ class Parser(lexer: Lexer) {
 
   case object EndStatement    extends Statement
 
-  case class PrintStatement(exList: Array[String | Expression]) extends Statement
+  case class PrintStatement(exList: ExprList) extends Statement
 
-  case class LetStatement(v: Token, x: Array[Token | Expression]) extends Statement
+  case class LetStatement(v: Token, x: Expression) extends Statement
 
-  case class IfStatement(x: Array[Token | Expression],
-                         y: Array[Token | Expression],
+  case class IfStatement(x: Expression,
+                         y: Expression,
                          op: Token, s: Statement) extends Statement
 
-  case class GoTo(x: Array[Token | Expression]) extends Statement
+  case class GoTo(x: Expression) extends Statement
 
   @throws
   def statement: Statement= {
@@ -154,7 +152,7 @@ class Parser(lexer: Lexer) {
   }
 
   @throws
-  def expression: Array[Token | Expression] = {
+  def expression: Expression = {
     var collect = Array[Token | Expression]()
     while (true) {
       try {
@@ -171,7 +169,7 @@ class Parser(lexer: Lexer) {
           case LPAREN =>
             advance()
             collect :+ Right(expression)
-          case _ => return collect
+          case _ => return Expression(collect)
         }
 
       } catch {
@@ -179,11 +177,11 @@ class Parser(lexer: Lexer) {
       }
     }
 
-    collect
+    Expression(collect)
   }
 
   @throws
-  def exprList: Array[String | Expression] = {
+  def exprList: ExprList= {
 
     var ret = Array[String | Expression]()
     token.t match {
@@ -198,9 +196,9 @@ class Parser(lexer: Lexer) {
     if(token.t == COMMA) {
       ret :+ Left(token)
       advance()
-      exprList.foreach(i => ret :+ i)
+      exprList.args.foreach(i => ret :+ i)
     }
-    ret
+    ExprList(ret)
   }
 
 }
