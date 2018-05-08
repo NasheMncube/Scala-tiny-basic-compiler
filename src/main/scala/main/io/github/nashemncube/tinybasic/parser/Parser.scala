@@ -79,6 +79,8 @@ class Parser(lexer: Lexer) {
   @throws
   def statement: Statement= {
 
+	  if(token.t == LF || token.t == EOF) return Epsilon
+
     token.value.getOrElse("fail") match { // Statements correspond to keyword type
 
       case "PRINT"  =>
@@ -147,11 +149,15 @@ class Parser(lexer: Lexer) {
                | COMMA
                | MULT
                | DIV  =>
-            collect :+ Left(token)
+            collect ++ Array(Left(token))
             advance()
           case LPAREN =>
+	          collect ++ Array(Left(token))
             advance()
-            collect :+ Right(expression)
+            collect ++ Array(Right(expression))
+          case RPAREN =>
+	          collect ++ Array(Left(token))
+	          advance()
           case _ => return Expression(collect)
         }
 
@@ -166,20 +172,20 @@ class Parser(lexer: Lexer) {
   @throws
   def exprList: ExprList= {
 
-    var ret = Array[String | Expression]()
+    var ret = Array[Token | Expression]()
     token.t match {
       case STRING =>
-        ret :+ Left(token)
+        ret ++ Array(Left(token))
         advance()
       case _ =>
-        ret :+ Right(expression)
+        ret ++ Array(Right(expression))
         advance()
     }
 
     if(token.t == COMMA) {
-      ret :+ Left(token)
+      ret ++ Array(Left(token))
       advance()
-      exprList.args.foreach(i => ret :+ i)
+      exprList.args.foreach(i => ret ++ Array(i))
     }
     ExprList(ret)
   }
