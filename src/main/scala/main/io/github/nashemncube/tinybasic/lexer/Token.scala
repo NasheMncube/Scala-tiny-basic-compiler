@@ -1,5 +1,6 @@
 package main.io.github.nashemncube.tinybasic.lexer
 
+import main.io.github.nashemncube.tinybasic.lexer.Type._
 /**
   * Created by nashe on 23/01/2018.
   */

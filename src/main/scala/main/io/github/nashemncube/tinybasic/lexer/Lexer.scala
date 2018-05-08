@@ -1,6 +1,7 @@
 package main.io.github.nashemncube.tinybasic.lexer
 
 import java.io.{IOException, Reader, StringReader}
+import main.io.github.nashemncube.tinybasic.lexer.Type._
 
 import util.control.Breaks._
 

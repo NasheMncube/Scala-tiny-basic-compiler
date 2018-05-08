@@ -4,6 +4,7 @@ import java.io.StringReader
 
 import org.scalatest._
 import main.io.github.nashemncube.tinybasic.lexer._
+import main.io.github.nashemncube.tinybasic.lexer.Type._
 /**
   * Created by nashe on 26/01/2018.
   *

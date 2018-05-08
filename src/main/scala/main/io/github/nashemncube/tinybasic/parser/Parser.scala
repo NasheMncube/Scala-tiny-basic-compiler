@@ -1,6 +1,8 @@
 package main.io.github.nashemncube.tinybasic.parser
 
 import main.io.github.nashemncube.tinybasic.lexer._
+import main.io.github.nashemncube.tinybasic.parser.Statement._
+import main.io.github.nashemncube.tinybasic.lexer.Type._
 
 // TODO: Testing of parser
 
@@ -44,10 +46,6 @@ import main.io.github.nashemncube.tinybasic.lexer._
   */
 class Parser(lexer: Lexer) {
 
-  case class Expression(args: Array[ Token | Expression])
-  case class ExprList(args: Array[String | Expression])
-  type |[A, B] = Either[A, B]
-
   var token: Token = lexer.nextToken
 
   def advance(): Unit = {
@@ -65,7 +63,7 @@ class Parser(lexer: Lexer) {
 
   case class Line(v: Option[String], s: Statement)
 
-  def line(): Line = {
+  def line: Line = {
     val value = token.value
 
     token.t match {
@@ -77,21 +75,6 @@ class Parser(lexer: Lexer) {
     }
   }
 
-  sealed trait Statement
-
-  case object ReturnStatement extends Statement
-
-  case object EndStatement    extends Statement
-
-  case class PrintStatement(exList: ExprList) extends Statement
-
-  case class LetStatement(v: Token, x: Expression) extends Statement
-
-  case class IfStatement(x: Expression,
-                         y: Expression,
-                         op: Token, s: Statement) extends Statement
-
-  case class GoTo(x: Expression) extends Statement
 
   @throws
   def statement: Statement= {
