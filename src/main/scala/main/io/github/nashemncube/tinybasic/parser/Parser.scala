@@ -60,7 +60,18 @@ class Parser(lexer: Lexer) {
     else throw new RuntimeException("Type mismatch")
   }
 
+  def lines: Array[Line] = {
 
+    var ret: Array[Line] = Array[Line]()
+
+    token.t match {
+      case EOF => ret
+      case _   =>
+        ret = ret :+ line
+				advance()
+		    ret ++ lines
+    }
+  }
   case class Line(v: Option[String], s: Statement)
 
   def line: Line = {
@@ -149,14 +160,14 @@ class Parser(lexer: Lexer) {
                | COMMA
                | MULT
                | DIV  =>
-            collect ++ Array(Left(token))
+            collect = collect :+ Left(token)
             advance()
           case LPAREN =>
-	          collect ++ Array(Left(token))
+	          collect = collect :+ Left(token)
             advance()
-            collect ++ Array(Right(expression))
+            collect = collect :+ Right(expression)
           case RPAREN =>
-	          collect ++ Array(Left(token))
+	          collect = collect :+ Left(token)
 	          advance()
           case _ => return Expression(collect)
         }
@@ -170,22 +181,22 @@ class Parser(lexer: Lexer) {
   }
 
   @throws
-  def exprList: ExprList= {
+  def exprList: ExprList = {
 
     var ret = Array[Token | Expression]()
     token.t match {
       case STRING =>
-        ret ++ Array(Left(token))
+        ret = ret :+ Left(token)
         advance()
       case _ =>
-        ret ++ Array(Right(expression))
+        ret = ret :+ Right(expression)
         advance()
     }
 
     if(token.t == COMMA) {
-      ret ++ Array(Left(token))
+      ret = ret :+ Left(token)
       advance()
-      exprList.args.foreach(i => ret ++ Array(i))
+      exprList.args.foreach(i => {ret = ret :+ i})
     }
     ExprList(ret)
   }

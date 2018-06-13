@@ -144,7 +144,6 @@ class Lexer(reader: Reader) {
 
 
     throw new IOException("Syntax error: String missing terminating character")
-    //return new Token(Type.STRING, Option(ret))
   }
 
   @throws

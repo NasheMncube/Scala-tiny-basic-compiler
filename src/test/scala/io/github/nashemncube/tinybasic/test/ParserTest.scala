@@ -18,18 +18,23 @@ class ParserTest extends FunSuite{
     assert(parser.statement == ReturnStatement)
   }
 
+	test("Test parsing of expressions") {
+		val input = "1 * ( 2 + 4 )\n"
+
+		val lexer = new Lexer(input)
+		val parser = new Parser(lexer)
+
+	}
+
   test("Test PRINT statements"){
-	  val input = "PRINT 1, \"Hello world\", A\n" +
-		            "PRINT A + B, A - B\n" +
-		            "PRINT 1 * (1 * (A + B))\n"
+	  val input = "PRINT \"Hello world\", A\n"
+
 	  val lexer = new Lexer(input)
 	  val parser = new Parser(lexer)
 
 	  assert(parser.statement.args ==
 		  Array(
-			  Left(Token(NUMBER, Option("1"))),
-			  Left(Token(STRING, Option("Hello world"))),
-			  Left(Token(VAR, Option("A")))))
+			  Left(Token(STRING, Option("Hello world"))))
   }
 
 
