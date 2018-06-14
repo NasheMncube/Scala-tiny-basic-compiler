@@ -72,7 +72,6 @@ class Parser(lexer: Lexer) {
 		    ret ++ lines
     }
   }
-  case class Line(v: Option[String], s: Statement)
 
   def line: Line = {
     val value = token.value

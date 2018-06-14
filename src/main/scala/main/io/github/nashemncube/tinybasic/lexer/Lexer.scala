@@ -60,15 +60,15 @@ class Lexer(reader: Reader) {
   def nextToken: Token = {
     val char = reader.read()
     if(char == -1) Token(EOF, Option.empty)
-    else if(char == '\n'.toInt) Token(LF, Option.empty)
-    else if(char == '+'.toInt)  Token(PLUS, Option.empty)
-    else if(char == '-'.toInt)  Token(MINUS, Option.empty)
-    else if(char == '/'.toInt)  Token(DIV, Option.empty)
-    else if(char == '*'.toInt)  Token(MULT, Option.empty)
-    else if(char == '='.toInt)  Token(EQ, Option.empty)
-    else if(char == '('.toInt)  Token(LPAREN, Option.empty)
-    else if(char == ')'.toInt)  Token(RPAREN, Option.empty)
-    else if(char == ','.toInt)  Token(COMMA, Option.empty)
+    else if(char == '\n'.toInt) Token(LF, Option("\n"))
+    else if(char == '+'.toInt)  Token(PLUS, Option("+"))
+    else if(char == '-'.toInt)  Token(MINUS,Option("-"))
+    else if(char == '/'.toInt)  Token(DIV,Option("/"))
+    else if(char == '*'.toInt)  Token(MULT, Option("*"))
+    else if(char == '='.toInt)  Token(EQ, Option("="))
+    else if(char == '('.toInt)  Token(LPAREN, Option("("))
+    else if(char == ')'.toInt)  Token(RPAREN, Option(")"))
+    else if(char == ','.toInt)  Token(COMMA, Option(","))
     else if(char == '\"'.toInt) nextStringToken(char)
     else if(char == '>'.toInt || char == '<'.toInt)  nextRelationalToken(char)
     else if(isAlpha(char) && !isAlpha(peek(reader)))
@@ -91,14 +91,14 @@ class Lexer(reader: Reader) {
     if(first == '>'.toInt) {
       if (second == '='.toInt) {
         reader.skip(1)
-        Token(GTE, Option.empty)
+        Token(GTE, Option(">="))
       }
       else if(second == '<') {
         reader.skip(1)
-        Token(NE, Option.empty)
+        Token(NE, Option("!="))
       } else {
         reader.skip(1)
-        Token(GT, Option.empty)
+        Token(GT, Option(">"))
       }
     }
     else {
@@ -106,14 +106,14 @@ class Lexer(reader: Reader) {
 
       if(second == '='.toInt){
         reader.skip(1)
-        Token(LTE, Option.empty)
+        Token(LTE, Option("<="))
       }
       else if(second == '>'.toInt){
         reader.skip(1)
-        Token(NE, Option.empty)
+        Token(NE, Option("!="))
       } else {
         reader.skip(1)
-        Token(LT, Option.empty)
+        Token(LT, Option("<"))
       }
 
     }
