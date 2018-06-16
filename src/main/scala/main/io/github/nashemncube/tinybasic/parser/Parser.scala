@@ -4,7 +4,6 @@ import main.io.github.nashemncube.tinybasic.lexer._
 import main.io.github.nashemncube.tinybasic.parser.Statement._
 import main.io.github.nashemncube.tinybasic.lexer.Type._
 
-// TODO: Testing of parser
 
 /**
   * Created by nashe on 27/01/2018.
@@ -20,13 +19,16 @@ import main.io.github.nashemncube.tinybasic.lexer.Type._
     statement ::= PRINT expr-list
                   IF expression relop expression THEN statement
                   GOTO expression
-
+                  INPUT var-ist
                   LET var = expression
+                  RETURN
+                  CLEAR
+                  LIST
+                  RUN
+                  END
 
-                  RETURN // DONE
-                  END // DONE
-
-    expr-list ::= (string|expression) (, (string|expression) )
+    var-list ::= var (, var)*
+    expr-list ::= (string|expression) (, (string|expression) )*
 
     expression ::= (+|-|ε) term ((+|-) term)*
 
@@ -96,26 +98,30 @@ class Parser(lexer: Lexer) {
       case "PRINT"  =>
         advance()
         PrintStatement(exprList)
-
       case "GOTO"   =>
         advance()
-        GoTo(expression)
-
+        GoToStatement(expression)
       case "LET"    =>
         advance()
         val v = eat(VAR); advance()
         LetStatement(v, expression)
-
       case "RETURN" =>
         advance()
         ReturnStatement
-
       case "END"    =>
         advance()
         EndStatement
+      case "CLEAR" =>
+	      advance()
+	      ClearStatement
+      case "LIST"  =>
+	      advance()
+	      ListStatement
+      case "RUN"   =>
+	      advance()
+	      RunStatement
 
-      case "IF"     =>
-      {
+      case "IF"     => advance(); {
         val e1 = expression
 
         val op = token.t match {
@@ -141,13 +147,18 @@ class Parser(lexer: Lexer) {
         IfStatement(e1, e2, op, s)
       }
 
+      case "INPUT" => advance(); {
+	      val args = varList();
+	      InputStatement(args)
+      }
+
       case _        =>
         throw new RuntimeException("Invalid statement in code " + token.value.getOrElse("NO STATEMENT"))
     }
   }
 
   @throws
-  def expression: Expression = {
+  def expression(): Expression = {
     var collect = Array[Token | Expression]()
     while (true) {
       try {
@@ -180,16 +191,18 @@ class Parser(lexer: Lexer) {
   }
 
   @throws
-  def exprList: ExprList = {
+  def exprList(): ExprList = {
 
     var ret = Array[Token | Expression]()
     token.t match {
       case STRING =>
         ret = ret :+ Left(token)
         advance()
-      case _ =>
+      case PLUS | MINUS | VAR | NUMBER | LPAREN =>
         ret = ret :+ Right(expression)
         advance()
+
+      case _ => return ExprList(ret)
     }
 
     if(token.t == COMMA) {
@@ -199,5 +212,22 @@ class Parser(lexer: Lexer) {
     }
     ExprList(ret)
   }
+
+	def varList(): VarList = {
+		var ret = Array[Token]()
+
+		token.t match {
+				case VAR   => ret = ret :+ token; advance()
+				case _     => return VarList(ret)
+		}
+
+		if(token.t == COMMA){
+			ret = ret :+ token
+			advance()
+			varList.args.foreach(v => {ret = ret :+ v})
+		}
+
+		VarList(ret)
+	}
 
 }
